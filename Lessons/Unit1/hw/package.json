@@ -1,0 +1,11 @@
+{
+  "name": "hw",
+  "version": "1.0.0",
+  "description": "Home Work Unit 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "F.Burhonov",
+  "license": "ISC"
+}
