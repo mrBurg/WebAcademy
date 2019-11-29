@@ -1,2 +1,5 @@
 node_modules/
 bundle/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
