@@ -39,8 +39,29 @@ export default class Paginator {
           break;
       }
 
-      for (let child of data.children)
+      let allBtns = buttons.querySelectorAll('#start, #prev, #next, #end');
+
+      for (let btn of allBtns)
+        btn.disabled = false;
+
+
+      if (current == 0) {
+        let startButtons = buttons.querySelectorAll('#start, #prev');
+
+        for (let btn of startButtons)
+          btn.disabled = true;
+
+      } else if (current == data.children.length - 1) {
+        let endButtons = buttons.querySelectorAll('#next, #end');
+
+        for (let btn of endButtons)
+          btn.disabled = true;
+      }
+
+      for (let child of data.children) {
         child.classList.remove('active');
+        child.querySelector('.js-article__description').classList.remove('opened')
+      }
 
       data.children[current].classList.add('active');
     }
