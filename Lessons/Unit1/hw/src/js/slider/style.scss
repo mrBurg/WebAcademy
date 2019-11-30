@@ -1,0 +1,10 @@
+.slider {
+  margin: auto;
+  max-width: 480px;
+
+  &__content {
+    min-height: 410px;
+    overflow: hidden;
+    position: relative;
+  }
+}

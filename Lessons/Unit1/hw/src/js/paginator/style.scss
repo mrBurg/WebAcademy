@@ -1,0 +1,25 @@
+.paginator {
+  text-align: center;
+
+  .ui {
+    &-button {
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 2em;
+      cursor: pointer;
+      font-size: 0.8em;
+      min-width: 5em;
+      padding: 1em;
+      transition: all .2s;
+
+      &:hover {
+        background: rgba(200, 200, 200, .5);
+        border-color: #8bce69;
+      }
+
+      &::-moz-focus-inner {
+        border: 0;
+      }
+    }
+  }
+}

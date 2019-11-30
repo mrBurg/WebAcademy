@@ -18,27 +18,30 @@ module.exports = {
     rules: [{
       test: /\.(sa|sc|c)ss$/,
       use: [{
-          loader: MINI_CSS_EXTRACT_PLUGIN.loader,
-          options: {
-            publicPath: 'bundle/'
-          }
-        }, {
-          loader: 'css',
-          options: {
-            sourceMap: true
-          }
-        }, {
-          loader: 'postcss',
-          options: {
-            plugins: [AUTOPREFIXER({
-              overrideBrowserslist: [
-                'ie >= 9', 'last 2 version'
-              ]
-            })]
-          }
-        },
-        'sass'
-      ]
+        loader: MINI_CSS_EXTRACT_PLUGIN.loader,
+        options: {
+          publicPath: 'css/'
+        }
+      }, {
+        loader: 'css',
+        options: {
+          // sourceMap: true
+        }
+      }, {
+        loader: 'postcss',
+        options: {
+          plugins: [AUTOPREFIXER({
+            overrideBrowserslist: [
+              'ie >= 9', 'last 2 version'
+            ]
+          })]
+        }
+      }, {
+        loader: 'sass',
+        options: {
+          // sourceMap: true
+        }
+      }]
     }]
   },
   resolve: {
@@ -52,7 +55,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HTML_WEBPACK_PLUGIN({
-      title: 'WebAcademy'
+      title: 'WebAcademy',
+      template: 'src/tpl/index.html'
     }),
     new MINI_CSS_EXTRACT_PLUGIN({
       filename: 'css/[name].css'
@@ -67,6 +71,6 @@ module.exports = {
     contentBase: PATH.resolve(__dirname, './bundle'),
     host: 'localhost',
     port: 9000,
-    open: true
+    // open: true
   }
 }
