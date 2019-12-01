@@ -44,7 +44,6 @@ export default class Paginator {
       for (let btn of allBtns)
         btn.disabled = false;
 
-
       if (current == 0) {
         let startButtons = buttons.querySelectorAll('#start, #prev');
 
