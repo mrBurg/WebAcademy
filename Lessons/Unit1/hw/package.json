@@ -1,17 +1,23 @@
 {
-  "name": "hw",
+  "homepage": "https://mrburg.github.io/WebAcademy/",
+  "name": "hw1",
   "version": "1.0.0",
   "description": "Home Work Unit 1",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "deploy": "gh-pages -d bundle/"
   },
-  "author": "F.Burhonov",
+  "author": {
+    "name": "F.Burhonov",
+    "email": "fed-@ukr.net"
+  },
   "license": "ISC",
+  "repository": "https://github.com/mrBurg/WebAcademy.git",
   "devDependencies": {
     "autoprefixer": "^9.7.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
+    "gh-pages-webpack-plugin": "^1.0.2",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.0",
@@ -21,5 +27,6 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {}
 }

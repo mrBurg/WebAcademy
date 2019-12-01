@@ -2,7 +2,8 @@ const PATH = require("path"),
   HTML_WEBPACK_PLUGIN = require("html-webpack-plugin"),
   MINI_CSS_EXTRACT_PLUGIN = require("mini-css-extract-plugin"),
   AUTOPREFIXER = require("autoprefixer"),
-  { CleanWebpackPlugin } = require("clean-webpack-plugin");
+  { CleanWebpackPlugin } = require("clean-webpack-plugin"),
+  GH_PAGES_WEBPACK_PLUGIN = require("gh-pages-webpack-plugin");
 
 module.exports = {
   context: PATH.resolve(__dirname),
@@ -12,7 +13,7 @@ module.exports = {
   output: {
     path: PATH.resolve("bundle"),
     filename: "js/index.js",
-    publicPath: "/"
+    publicPath: "https://mrburg.github.io/WebAcademy/"
   },
   module: {
     rules: [
@@ -23,6 +24,7 @@ module.exports = {
             loader: MINI_CSS_EXTRACT_PLUGIN.loader,
             options: {
               publicPath: "css/"
+              // sourceMap: true
             }
           },
           {
@@ -39,6 +41,7 @@ module.exports = {
                   overrideBrowserslist: ["ie >= 9", "last 2 version"]
                 })
               ]
+              // sourceMap: true
             }
           },
           {
@@ -67,6 +70,18 @@ module.exports = {
     }),
     new MINI_CSS_EXTRACT_PLUGIN({
       filename: "css/[name].css"
+    }),
+    new GH_PAGES_WEBPACK_PLUGIN({
+      path: PATH.resolve(__dirname, "bundle"),
+      options: {
+        branch: "gh-pages",
+        message: "GHPages deployed",
+        user: {
+          name: "F.Burhonov",
+          email: "fed-@ukr.net"
+        },
+        repo: "https://github.com/mrBurg/WebAcademy.git"
+      }
     })
   ],
   watch: false,
