@@ -13,13 +13,13 @@ export default class Slide {
     let article = createElementFromHTML(`
       <article class="article">
         <a href="${ productUrl }" class="article__link" title="${ note }">
-            <img class="article__img" src="${ img }" alt="${ basename(img) }">
+          <img class="article__img" src="${ img }" alt="${ basename(img) }">
         </a>
         <div class="article__content">
           <header class="article__header">
-              <h2>
-                ${ title }
-              </h2>
+            <h2>
+              ${ title }
+            </h2>
           </header>
           <div class="article__description js-article__description">
             ${ description }

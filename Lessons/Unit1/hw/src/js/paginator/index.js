@@ -71,8 +71,6 @@ export default class Paginator {
     next.addEventListener('click', changeState);
     end.addEventListener('click', changeState);
 
-    data.children[current].classList.add('active');
-
     return buttons;
   }
 

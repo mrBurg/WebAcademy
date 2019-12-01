@@ -12,12 +12,12 @@ export default class Slider {
     content.classList.add('slider__content');
 
     fetch(dataURL)
-      .then(data => {
-        return data.json();
-      })
+      .then(data => data.json())
       .then(dataJSON => {
         for (let data of dataJSON)
           content.append(new Slide(data).getHtml);
+
+        content.firstChild.classList.add('active');
 
         container.append(content);
         container.append(new Paginator(containerID, content).getHtml);
