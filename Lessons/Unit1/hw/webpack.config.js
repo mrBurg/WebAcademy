@@ -1,52 +1,59 @@
-const PATH = require('path'),
-  HTML_WEBPACK_PLUGIN = require('html-webpack-plugin'),
-  MINI_CSS_EXTRACT_PLUGIN = require('mini-css-extract-plugin'),
-  AUTOPREFIXER = require('autoprefixer'),
-  { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const PATH = require("path"),
+  HTML_WEBPACK_PLUGIN = require("html-webpack-plugin"),
+  MINI_CSS_EXTRACT_PLUGIN = require("mini-css-extract-plugin"),
+  AUTOPREFIXER = require("autoprefixer"),
+  { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   context: PATH.resolve(__dirname),
-  mode: 'development',
+  mode: "development",
   target: "web",
-  entry: './src/js/index.js',
+  entry: "./src/js/index.js",
   output: {
-    path: PATH.resolve('bundle'),
-    filename: 'js/index.js',
-    publicPath: '/'
+    path: PATH.resolve("bundle"),
+    filename: "js/index.js",
+    publicPath: "/"
   },
   module: {
-    rules: [{
-      test: /\.(sa|sc|c)ss$/,
-      use: [{
-        loader: MINI_CSS_EXTRACT_PLUGIN.loader,
-        options: {
-          publicPath: 'css/'
-        }
-      }, {
-        loader: 'css',
-        options: {
-          // sourceMap: true
-        }
-      }, {
-        loader: 'postcss',
-        options: {
-          plugins: [AUTOPREFIXER({
-            overrideBrowserslist: [
-              'ie >= 9', 'last 2 version'
-            ]
-          })]
-        }
-      }, {
-        loader: 'sass',
-        options: {
-          // sourceMap: true
-        }
-      }]
-    }]
+    rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          {
+            loader: MINI_CSS_EXTRACT_PLUGIN.loader,
+            options: {
+              publicPath: "css/"
+            }
+          },
+          {
+            loader: "css",
+            options: {
+              // sourceMap: true
+            }
+          },
+          {
+            loader: "postcss",
+            options: {
+              plugins: [
+                AUTOPREFIXER({
+                  overrideBrowserslist: ["ie >= 9", "last 2 version"]
+                })
+              ]
+            }
+          },
+          {
+            loader: "sass",
+            options: {
+              // sourceMap: true
+            }
+          }
+        ]
+      }
+    ]
   },
   resolve: {
-    modules: ['node_modules'],
-    extensions: ['.js', '.scss']
+    modules: ["node_modules"],
+    extensions: [".js", ".scss"]
   },
   resolveLoader: {
     moduleExtensions: ["-loader"]
@@ -55,11 +62,11 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HTML_WEBPACK_PLUGIN({
-      title: 'WebAcademy',
-      template: 'src/tpl/index.html'
+      title: "WebAcademy",
+      template: "src/tpl/index.html"
     }),
     new MINI_CSS_EXTRACT_PLUGIN({
-      filename: 'css/[name].css'
+      filename: "css/[name].css"
     })
   ],
   watch: false,
@@ -68,9 +75,9 @@ module.exports = {
     poll: true
   },
   devServer: {
-    contentBase: PATH.resolve(__dirname, './bundle'),
-    host: 'localhost',
-    port: 9000,
+    contentBase: PATH.resolve(__dirname, "./bundle"),
+    host: "localhost",
+    port: 9000
     // open: true
   }
-}
+};
