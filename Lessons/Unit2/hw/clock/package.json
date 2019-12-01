@@ -1,8 +1,11 @@
 {
+  "homepage": "https://mrburg.github.io/WebAcademy/",
   "name": "clock",
   "version": "0.1.0",
+  "description": "Home Work Unit 2",
   "private": true,
   "dependencies": {
+    "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0"
@@ -29,6 +32,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^2.1.1",
     "node-sass": "^4.13.0"
   }
 }

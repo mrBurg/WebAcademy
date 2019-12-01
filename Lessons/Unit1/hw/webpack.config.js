@@ -13,7 +13,8 @@ module.exports = {
   output: {
     path: PATH.resolve("bundle"),
     filename: "js/index.js",
-    publicPath: "https://mrburg.github.io/WebAcademy/"
+    publicPath: "/"
+    // publicPath: "https://mrburg.github.io/WebAcademy/"
   },
   module: {
     rules: [
@@ -92,7 +93,7 @@ module.exports = {
   devServer: {
     contentBase: PATH.resolve(__dirname, "./bundle"),
     host: "localhost",
-    port: 9000
+    port: 3000
     // open: true
   }
 };

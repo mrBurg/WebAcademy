@@ -1,23 +1,45 @@
 import React, { Component } from "react";
+import moment from "moment";
 
-import Digital from "./view/Digital";
+import Scoreboard from "./view/Scoreboard";
 
 export default class Clock extends Component {
+  clockTypes = [
+    moment().format("LTS"),
+    moment().format("L"),
+    moment().format("LL")
+  ];
+
   state = {
-    date: new Date()
+    clockType: 0
   };
+
+  // state = {
+  //   digital: moment().format("LTS"),
+  //   date: moment().format("L"),
+  //   fullDate: moment().format("LL")
+  // };
 
   constructor(props) {
     super(props);
+  }
 
-    setInterval(() => {
+  componentDidMount() {
+    document.addEventListener("click", event => {
       this.setState({
-        date: new Date()
+        clockType:
+          this.state.clockType < this.clockTypes.length - 1
+            ? this.state.clockType + 1
+            : 0
       });
-    }, 1000);
+    });
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.info(nextState);
   }
 
   render() {
-    return <Digital time={this.state.date.toTimeString()} />;
+    return <Scoreboard data={this.clockTypes[this.state.clockType]} />;
   }
 }

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Clock from './../containers/Clock'
+import Clock from "./../containers/Clock";
 
 export default function App() {
   return (
@@ -8,4 +8,4 @@ export default function App() {
       <Clock />
     </main>
   );
-};
+}
