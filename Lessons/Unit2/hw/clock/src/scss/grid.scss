@@ -5,7 +5,8 @@
 }
 
 html,
-body {
+body,
+#root {
   display: flex;
 }
 
@@ -14,8 +15,7 @@ html {
   min-height: 100%;
 }
 
-body {
-  align-items: center;
+body,
+#root {
   flex-grow: 1;
-  justify-content: center;
 }

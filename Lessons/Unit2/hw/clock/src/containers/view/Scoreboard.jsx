@@ -2,4 +2,6 @@ import React from "react";
 
 import "./style.scss";
 
-export default ({ data }) => <div className="scoreboard">{data}</div>;
+export default ({ data, style }) => (
+  <div className={`scoreboard ${style}`}>{data}</div>
+);

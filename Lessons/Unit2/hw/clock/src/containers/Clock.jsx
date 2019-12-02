@@ -3,43 +3,40 @@ import moment from "moment";
 
 import Scoreboard from "./view/Scoreboard";
 
+let count = 0;
+
 export default class Clock extends Component {
-  clockTypes = [
-    moment().format("LTS"),
-    moment().format("L"),
-    moment().format("LL")
-  ];
+  clockTypes = ["digital", "digitalShort", "date", "fullDate"];
 
   state = {
-    clockType: 0
+    digital: moment().format("LTS"),
+    digitalShort: moment().format("LT"),
+    date: moment().format("L"),
+    fullDate: moment().format("LL"),
+    scoreboardType: this.clockTypes[count]
   };
-
-  // state = {
-  //   digital: moment().format("LTS"),
-  //   date: moment().format("L"),
-  //   fullDate: moment().format("LL")
-  // };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     document.addEventListener("click", event => {
-      this.setState({
-        clockType:
-          this.state.clockType < this.clockTypes.length - 1
-            ? this.state.clockType + 1
-            : 0
-      });
-    });
-  }
+      count = count < this.clockTypes.length - 1 ? count + 1 : 0;
 
-  componentWillUpdate(nextProps, nextState) {
-    console.info(nextState);
+      this.setState({ scoreboardType: this.clockTypes[count] });
+    });
+
+    setInterval(() => {
+      this.setState({
+        digital: moment().format("LTS"),
+        digitalShort: moment().format("LT")
+      });
+    }, 1000);
   }
 
   render() {
-    return <Scoreboard data={this.clockTypes[this.state.clockType]} />;
+    return (
+      <Scoreboard
+        data={this.state[this.state.scoreboardType]}
+        style={this.state.scoreboardType}
+      />
+    );
   }
 }

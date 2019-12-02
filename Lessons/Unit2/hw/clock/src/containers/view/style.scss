@@ -1,4 +1,25 @@
 .scoreboard {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
   font-size: 10vw;
+  justify-content: center;
+  transition: background-color 0.5s;
   user-select: none;
+}
+
+.digital {
+  background-color: #f2f2f2;
+}
+
+.digitalShort {
+  background-color: #f5ffc1;
+}
+
+.date {
+  background-color: #ffe5a0;
+}
+
+.fullDate {
+  background-color: #ffddc1;
 }
