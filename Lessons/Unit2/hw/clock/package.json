@@ -1,7 +1,7 @@
 {
   "homepage": "https://mrburg.github.io/WebAcademy/",
   "name": "clock",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Home Work Unit 2",
   "private": true,
   "dependencies": {
@@ -15,12 +15,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d bundle/"
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "author": {
     "name": "F.Burhonov",
     "email": "fed-@ukr.net"
   },
+  "repository": "https://github.com/mrBurg/WebAcademy.git",
   "eslintConfig": {
     "extends": "react-app"
   },
