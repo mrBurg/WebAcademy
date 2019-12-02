@@ -1,8 +1,8 @@
-import { basename } from "path";
+import { basename } from 'path';
 
-import "./style.scss";
+import './style.scss';
 
-import { createElementFromHTML } from "./../utils.js";
+import { createElementFromHTML } from './../utils.js';
 
 export default class Slide {
   constructor(data) {
@@ -29,14 +29,14 @@ export default class Slide {
       </article>
     `);
 
-    let more = article.querySelector(".more");
+    let more = article.querySelector('.more');
 
-    more.addEventListener("click", event => {
+    more.addEventListener('click', event => {
       event.preventDefault();
 
       article
-        .querySelector(".js-article__description")
-        .classList.toggle("opened");
+        .querySelector('.js-article__description')
+        .classList.toggle('opened');
     });
 
     return article;
