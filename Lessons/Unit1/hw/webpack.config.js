@@ -1,18 +1,18 @@
-const PATH = require("path"),
-  HTML_WEBPACK_PLUGIN = require("html-webpack-plugin"),
-  MINI_CSS_EXTRACT_PLUGIN = require("mini-css-extract-plugin"),
-  AUTOPREFIXER = require("autoprefixer"),
-  { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const PATH = require('path'),
+  HTML_WEBPACK_PLUGIN = require('html-webpack-plugin'),
+  MINI_CSS_EXTRACT_PLUGIN = require('mini-css-extract-plugin'),
+  AUTOPREFIXER = require('autoprefixer'),
+  { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   context: PATH.resolve(__dirname),
-  mode: "development",
-  target: "web",
-  entry: "./src/js/index.js",
+  mode: 'development',
+  target: 'web',
+  entry: './src/js/index.js',
   output: {
-    path: PATH.resolve("bundle"),
-    filename: "js/index.js",
-    publicPath: "/"
+    path: PATH.resolve('bundle'),
+    filename: 'js/index.js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -22,29 +22,29 @@ module.exports = {
           {
             loader: MINI_CSS_EXTRACT_PLUGIN.loader,
             options: {
-              publicPath: "css/"
+              publicPath: 'css/'
               // sourceMap: true
             }
           },
           {
-            loader: "css",
+            loader: 'css',
             options: {
               // sourceMap: true
             }
           },
           {
-            loader: "postcss",
+            loader: 'postcss',
             options: {
               plugins: [
                 AUTOPREFIXER({
-                  overrideBrowserslist: ["ie >= 9", "last 2 version"]
+                  overrideBrowserslist: ['ie >= 9', 'last 2 version']
                 })
               ]
               // sourceMap: true
             }
           },
           {
-            loader: "sass",
+            loader: 'sass',
             options: {
               // sourceMap: true
             }
@@ -54,21 +54,21 @@ module.exports = {
     ]
   },
   resolve: {
-    modules: ["node_modules"],
-    extensions: [".js", ".scss"]
+    modules: ['node_modules'],
+    extensions: ['.js', '.scss']
   },
   resolveLoader: {
-    moduleExtensions: ["-loader"]
+    moduleExtensions: ['-loader']
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   plugins: [
     new CleanWebpackPlugin(),
     new HTML_WEBPACK_PLUGIN({
-      title: "WebAcademy",
-      template: "src/tpl/index.html"
+      title: 'WebAcademy',
+      template: 'src/tpl/index.html'
     }),
     new MINI_CSS_EXTRACT_PLUGIN({
-      filename: "css/[name].css"
+      filename: 'css/[name].css'
     })
   ],
   watch: false,
@@ -77,8 +77,8 @@ module.exports = {
     poll: true
   },
   devServer: {
-    contentBase: PATH.resolve(__dirname, "./bundle"),
-    host: "localhost",
+    contentBase: PATH.resolve(__dirname, './bundle'),
+    host: 'localhost',
     port: 3000,
     open: true
   }
