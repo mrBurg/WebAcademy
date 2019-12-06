@@ -1,0 +1,22 @@
+@import 'scss/fonts.scss';
+
+* {
+  margin: 0;
+  outline: none;
+  padding: 0;
+}
+
+html,
+body {
+  display: flex;
+}
+
+html {
+  font-family: Calibri;
+  min-height: 100%;
+}
+
+body,
+#root {
+  flex-basis: 100%;
+}

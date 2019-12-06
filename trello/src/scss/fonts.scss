@@ -1,0 +1,69 @@
+$fontFamily: Calibri !default;
+$fontPath: '/fonts/#{ $fontFamily }/' !default;
+$fontStyles: (
+  Calibri: (
+    normal,
+    normal
+  ),
+  Calibri-Bold: (
+    bold,
+    normal
+  ),
+  Calibri-Italic: (
+    normal,
+    italic
+  ),
+  Calibri-Bold_Italic: (
+    bold,
+    italic
+  )
+);
+
+$fontTypes: (
+  eot: embedded-opentype,
+  otf: opentype,
+  woff2: woff2,
+  woff: woff,
+  ttf: truetype,
+  svg: svg
+);
+
+@function ie-font-url($fontName) {
+  @return url('#{ $fontPath + $fontName }.eot');
+}
+
+@function check-type($fontName, $ext) {
+  $type: '';
+  @if ($ext== 'eot') {
+    $type: $type + '?#iefix';
+  }
+  @if ($ext== 'svg') {
+    $type: $type + '#' + $fontName;
+  }
+  @return $type;
+}
+
+@function font-url($fontName) {
+  $count: 0;
+  $urls: '';
+  @each $ext, $type in $fontTypes {
+    $str: if($count==0, '', ',');
+    $str: $str +
+      url('#{ $fontPath + $fontName }.#{ $ext }#{ check-type($fontName, $ext) }');
+    $str: $str + if($type, ' ' + format('#{ $type }'), '');
+
+    $urls: $urls + $str;
+    $count: $count + 1;
+  }
+  @return #{$urls};
+}
+
+@each $fontName, $style in $fontStyles {
+  @font-face {
+    font-family: $fontFamily;
+    font-weight: nth($style, 1);
+    font-style: nth($style, 2);
+    src: ie-font-url($fontName);
+    src: font-url($fontName);
+  }
+}
