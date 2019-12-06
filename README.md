@@ -1,2 +1,3 @@
 # WebAcademy
-Web academy course
+
+Код лекций и митингов академии
