@@ -5,7 +5,16 @@ import './App.scss';
 import { setToLocalStorage, getFromLocalStorage } from '../../utils';
 
 // import { Header } from './Header';
+// http://trello-clone-redux.herokuapp.com/
 
+const {
+  REACT_APP_REDIRECT_URL,
+  REACT_APP_EXPIRATION,
+  REACT_APP_NAME,
+  REACT_APP_SCOPE,
+  REACT_APP_RESPONSE_TYPE,
+  REACT_APP_KEY
+} = process.env;
 const TOKEN_STORAGE_KEY = 'TOKEN';
 
 interface Board {
@@ -49,24 +58,23 @@ export class App extends Component<{}, AppState> {
   }
 
   private renderHeader() {
-    let redirectUrl = 'http://localhost:3000/',
-      expiration = '1day',
-      appName = 'TRELLO_TOKEN',
-      scope = ['read', 'write', 'account'],
-      response_type = 'token',
-      key = 'dbcd095b73444a442cb438b4d8b5c3fc',
+    let redirectUrl = REACT_APP_REDIRECT_URL,
+      expiration = REACT_APP_EXPIRATION,
+      appName = REACT_APP_NAME,
+      scope = REACT_APP_SCOPE,
+      response_type = REACT_APP_RESPONSE_TYPE,
+      key = REACT_APP_KEY,
       requestUrl = `https://trello.com/1/authorize
       ?return_url=${redirectUrl}
       &expiration=${expiration}
       &name=${appName}
-      &scope=${scope.join(',')}
+      &scope=${scope}
       &response_type=${response_type}
       &key=${key}`.replace(/[\s\n]/g, '');
 
     return (
       <header>
         <h2>Welcome!</h2>
-        {console.info(this.isLoggedIn)}
         {this.isLoggedIn ? (
           'User'
         ) : (
@@ -90,11 +98,12 @@ export class App extends Component<{}, AppState> {
     );
   }
 
-  public async componentDidMount() {
-    // let savedToken = await this.getToken(),
+  public componentDidMount() {
+    // let savedToken = await this.getToken();
     let newToken = this.getTokenFromUrl();
 
     // this.setToken(newToken || savedToken);
+    this.setToken(newToken);
   }
 
   public render() {
