@@ -110,6 +110,11 @@ export class App extends Component<{}, AppState> {
   }
 
   public render() {
-    return <div>{this.renderHeader()}</div>;
+    return (
+      <div>
+        {this.renderHeader()}
+        {this.renderContent()}
+      </div>
+    );
   }
 }
