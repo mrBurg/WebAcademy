@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 
 import './App.scss';
 
-import Logo from './../../svg/my-trello-logo.svg';
+// import Logo from './../../svg/my-trello-logo.svg';
 
 import { setToLocalStorage, getFromLocalStorage } from '../../utils';
+
+import { Header } from './../Header';
+import { TokenExpired } from '../Notifications';
+
+import { User } from './User';
+import { DashBoard } from './DashBoard';
+import { Route, Link } from 'react-router-dom';
 
 // import { Header } from './Header';
 // http://trello-clone-redux.herokuapp.com/
@@ -60,6 +67,10 @@ export class App extends Component<{}, AppState> {
   }
 
   private renderHeader() {
+    return <Header />;
+  }
+
+  private renderWelcome() {
     let redirectUrl = REACT_APP_REDIRECT_URL,
       expiration = REACT_APP_EXPIRATION,
       appName = REACT_APP_NAME,
@@ -75,8 +86,7 @@ export class App extends Component<{}, AppState> {
       &key=${key}`.replace(/[\s\n]/g, '');
 
     return (
-      <header>
-        <img src={Logo} alt="Logo" />
+      <div className="welcome">
         <h2>Welcome!</h2>
         {this.isLoggedIn ? (
           'User'
@@ -89,7 +99,7 @@ export class App extends Component<{}, AppState> {
             <a href={requestUrl}>Login with Trello account</a>
           </>
         )}
-      </header>
+      </div>
     );
   }
 
@@ -97,8 +107,20 @@ export class App extends Component<{}, AppState> {
     return (
       <main>
         {this.isLoggedIn ? 'Main content' : 'Please login with Trello Acc'}
+        <Route path="/login" component={User} />
+        <Route path="/" exact component={DashBoard} />
+        <div>
+          <Link to="/login">login</Link>
+        </div>
+        <div>
+          <Link to="/">DashBoard</Link>
+        </div>
       </main>
     );
+  }
+
+  private renderNotification() {
+    return <TokenExpired />;
   }
 
   public componentDidMount() {
@@ -111,10 +133,12 @@ export class App extends Component<{}, AppState> {
 
   public render() {
     return (
-      <div>
+      <>
         {this.renderHeader()}
+        {this.renderWelcome()}
         {this.renderContent()}
-      </div>
+        {this.renderNotification()}
+      </>
     );
   }
 }
