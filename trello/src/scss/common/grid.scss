@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  outline: none;
+  padding: 0;
+}
+
+html,
+body {
+  display: flex;
+}
+
+html {
+  font-family: $font-family;
+  min-height: 100%;
+}
+
+body,
+#root {
+  flex-basis: 100%;
+}
+
+body {
+  background: transparent url('/images/theme/main_background.jpg');
+  justify-content: center;
+  padding: 1em;
+}
+
+#root {
+  max-width: $max-width;
+}

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import './App.scss';
 
-// import Logo from './../../svg/my-trello-logo.svg';
-
 import { setToLocalStorage, getFromLocalStorage } from '../../utils';
 
 import { Header } from './../Header';
@@ -13,7 +11,6 @@ import { User } from './User';
 import { DashBoard } from './DashBoard';
 import { Route, Link } from 'react-router-dom';
 
-// import { Header } from './Header';
 // http://trello-clone-redux.herokuapp.com/
 
 const {

@@ -1,0 +1,15 @@
+.ui-button {
+  @extend %box-shadow;
+  border: 1px solid $green;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0.5em golden-ratio(0.5em);
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: $green;
+    box-shadow: none;
+    color: $white;
+  }
+}

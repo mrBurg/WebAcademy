@@ -1,0 +1,33 @@
+@mixin respond($size) {
+  @if type_of($size) == string {
+    $media: null;
+
+    @if $size == 'xxs' {
+      $media: '(max-width: #{ $xxs }px)';
+    } @else if $size == 'xs' {
+      $media: '(max-width: #{ $xs }px)';
+    } @else if $size == 'sm' {
+      $media: '(max-width: #{ $sm }px)';
+    } @else if $size == 'md' {
+      $media: '(max-width: #{ $lg - 1 }px)';
+    } @else if $size == 'lg' {
+      $media: '(min-width: #{ $lg }px) and (max-width: #{ $xl - 1 }px)';
+    } @else if $size == 'xl' {
+      $media: '(min-width: #{ $xl }px)';
+    } @else if $size == 'xxl' {
+      $media: '(min-width: #{ $xxl }px)';
+    }
+
+    @if $media {
+      @media only screen and #{$media} {
+        @content;
+      }
+    } @else {
+      @error "The param must be given one from [xxs, xs, sm, md, lg, xl, xxl]";
+    }
+  } @else {
+    @media only screen and (max-width: #{$size}px) {
+      @content;
+    }
+  }
+}

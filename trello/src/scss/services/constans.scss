@@ -1,0 +1,41 @@
+$golden-ratio: 1.61803398875;
+$font-family: Calibri;
+
+$min-width: 320px;
+$max-width: 60em;
+
+$transiton: all 0.2s;
+
+$black: #000;
+$gray: #ccc;
+$green: #004d40;
+$green-lighter: lighten($green, 10%);
+$green-darker: darken($green, 10%);
+$white: #fff;
+
+$prefixes: -webkit-, -moz-, -ms-, -o-;
+
+$xxs: 320;
+$xs: 480;
+$sm: 640;
+$md: 768;
+$lg: 960;
+$xl: 1200;
+$xxl: 1600;
+
+:export {
+  /*color: {
+    green: $green;
+    green-lighter: $green-lighter;
+  }*/
+
+  width: {
+    xxs: $xxs;
+    xs: $xs;
+    sm: $sm;
+    md: $md;
+    lg: $lg;
+    xl: $xl;
+    xxl: $xxl;
+  }
+}

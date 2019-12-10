@@ -1,0 +1,3 @@
+@function golden-ratio($num) {
+  @return round($num * $golden-ratio);
+}

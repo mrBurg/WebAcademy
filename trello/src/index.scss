@@ -1,39 +1,9 @@
-@import 'scss/fonts.scss';
+@import 'scss/services/functions.scss';
+@import 'scss/services/constans.scss';
+@import 'scss/services/mixins.scss';
+@import 'scss/services/placeholders.scss';
 
-* {
-  margin: 0;
-  outline: none;
-  padding: 0;
-}
+@import 'scss/common/fonts.scss';
+@import 'scss/common/ui.scss';
 
-html,
-body {
-  display: flex;
-}
-
-html {
-  font-family: Calibri;
-  min-height: 100%;
-}
-
-body,
-#root {
-  flex-basis: 100%;
-}
-
-body {
-  background: transparent url('/images/theme/main_background.jpg');
-  justify-content: center;
-  padding: 1em;
-}
-
-#root {
-  max-width: 60em;
-}
-
-.ui-button {
-  border: 1px solid #ccc;
-  border-radius: 0.5em;
-  cursor: pointer;
-  padding: 0.5em;
-}
+@import 'scss/common/grid.scss';
