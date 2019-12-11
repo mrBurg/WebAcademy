@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react';
-import { Route, RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 
 import style from './App.module.scss';
 
@@ -9,11 +9,9 @@ import {
   removeItemFromLocalStorage
 } from '../../utils';
 
-import { routes } from './Routes';
+import { routes, IAppRoute } from './Routes';
 
 import { Header } from './../Header';
-
-// http://trello-clone-redux.herokuapp.com/
 
 interface IBoard {
   id: string;
@@ -28,12 +26,6 @@ interface IAppState {
 }
 
 interface IAppProps {}
-
-interface IRoute {
-  path: string;
-  exact: boolean;
-  component(): ReactElement;
-}
 
 const TOKEN_STORAGE_KEY = 'TOKEN';
 
@@ -87,32 +79,25 @@ export class App extends Component<{}, IAppState> {
       <>
         <Header isLoggedIn={!!this.isLoggedIn} logout={this.logout} />
         <main className={style.main}>
-          {routes.map(
-            (route: any, index: number): ReactElement => {
-              let { path, exact, component } = route;
+          <Switch>
+            {routes.map(
+              (route: IAppRoute, index: number): ReactElement => {
+                let { path, exact, render } = route;
 
-              return (
-                <Route
-                  key={index}
-                  exact={exact}
-                  path={path}
-                  render={(props: RouteComponentProps): ReactElement => {
-                    console.info(props);
-                    return component;
-                  }}
-                />
-              );
-            }
-          )}
-          <Route
-            path="/"
-            exact
-            render={(): ReactElement => (
-              <h1>
-                Wellcome to <span style={{ color: 'red' }}>Trello Clone</span>
-              </h1>
+                return (
+                  <Route
+                    key={index}
+                    exact={exact}
+                    path={path}
+                    render={(props: RouteComponentProps): ReactElement =>
+                      render({ ...props, token: this.state.token })
+                    }
+                  />
+                );
+              }
             )}
-          />
+            {/* <Redirect to="/login" /> */}
+          </Switch>
         </main>
       </>
     );
