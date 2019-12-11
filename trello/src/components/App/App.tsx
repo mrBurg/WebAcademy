@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
+// import { Route, Link } from 'react-router-dom';
 
-import './App.scss';
+import style from './App.module.scss';
 
-import { setToLocalStorage, getFromLocalStorage } from '../../utils';
+import {
+  // setToLocalStorage,
+  // getFromLocalStorage,
+  clearLocalStorage
+} from '../../utils';
 
 import { Header } from './../Header';
-import { TokenExpired } from '../Notifications';
+// import { TokenExpired } from '../Notifications';
 
-import { User } from './User';
-import { DashBoard } from './DashBoard';
-import { Route, Link } from 'react-router-dom';
+import { Login } from './../Login';
+import { DashBoard } from './../DashBoard';
 
 // http://trello-clone-redux.herokuapp.com/
-
-const {
-  REACT_APP_REDIRECT_URL,
-  REACT_APP_EXPIRATION,
-  REACT_APP_NAME,
-  REACT_APP_SCOPE,
-  REACT_APP_RESPONSE_TYPE,
-  REACT_APP_KEY
-} = process.env;
-const TOKEN_STORAGE_KEY = 'TOKEN';
 
 interface Board {
   id: string;
@@ -31,9 +25,11 @@ interface Board {
 }
 
 interface AppState {
-  token: string;
+  token: string | null;
   boards: Array<Board>;
 }
+
+interface AppProps {}
 
 export class App extends Component<{}, AppState> {
   public state = {
@@ -41,18 +37,21 @@ export class App extends Component<{}, AppState> {
     boards: []
   };
 
-  private async setToken(token: string) {
-    this.setState({
-      token
-    });
+  public constructor(props: AppProps) {
+    super(props);
 
-    await setToLocalStorage(TOKEN_STORAGE_KEY, token);
+    this.logout = this.logout.bind(this);
+  }
+
+  private async setToken(token: string) {
+    this.setState({ token });
+
+    // await setToLocalStorage(TOKEN_STORAGE_KEY, token);
   }
 
   private async getToken() {
-    let token = await getFromLocalStorage(TOKEN_STORAGE_KEY);
-
-    return token;
+    // let token = await getFromLocalStorage(TOKEN_STORAGE_KEY);
+    // return token;
   }
 
   private getTokenFromUrl() {
@@ -63,78 +62,31 @@ export class App extends Component<{}, AppState> {
     return this.state.token;
   }
 
-  private renderHeader() {
-    return <Header />;
-  }
+  private logout() {
+    clearLocalStorage();
 
-  private renderWelcome() {
-    let redirectUrl = REACT_APP_REDIRECT_URL,
-      expiration = REACT_APP_EXPIRATION,
-      appName = REACT_APP_NAME,
-      scope = REACT_APP_SCOPE,
-      response_type = REACT_APP_RESPONSE_TYPE,
-      key = REACT_APP_KEY,
-      requestUrl = `https://trello.com/1/authorize
-      ?return_url=${redirectUrl}
-      &expiration=${expiration}
-      &name=${appName}
-      &scope=${scope}
-      &response_type=${response_type}
-      &key=${key}`.replace(/[\s\n]/g, '');
-
-    return (
-      <div className="welcome">
-        <h2>Welcome!</h2>
-        {this.isLoggedIn ? (
-          'User'
-        ) : (
-          <>
-            <p>
-              This is a simple task manager. To start to work with the maneger
-              log in with link below and let's see what have to be done today!
-            </p>
-            <a href={requestUrl}>Login with Trello account</a>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  private renderContent() {
-    return (
-      <main>
-        {this.isLoggedIn ? 'Main content' : 'Please login with Trello Acc'}
-        <Route path="/login" component={User} />
-        <Route path="/" exact component={DashBoard} />
-        <div>
-          <Link to="/login">login</Link>
-        </div>
-        <div>
-          <Link to="/">DashBoard</Link>
-        </div>
-      </main>
-    );
-  }
-
-  private renderNotification() {
-    return <TokenExpired />;
+    this.setState({
+      token: ''
+    });
   }
 
   public componentDidMount() {
     // let savedToken = await this.getToken();
     let newToken = this.getTokenFromUrl();
 
-    // this.setToken(newToken || savedToken);
-    this.setToken(newToken);
+    if (newToken) this.setToken(newToken);
   }
 
   public render() {
     return (
       <>
-        {this.renderHeader()}
-        {this.renderWelcome()}
-        {this.renderContent()}
-        {this.renderNotification()}
+        <Header isLoggedIn={!!this.isLoggedIn} logout={this.logout} />
+        <main className={style.main}>
+          {this.isLoggedIn ? <DashBoard /> : <Login />}
+          {/* <Route path="/login" component={User} /> */}
+          {/* <Route path="/" exact component={DashBoard} /> */}
+        </main>
+        {/* <TokenExpired /> */}
       </>
     );
   }

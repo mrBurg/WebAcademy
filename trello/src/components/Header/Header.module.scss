@@ -1,0 +1,35 @@
+@import './../../scss/services/functions.scss';
+@import './../../scss/services/constans.scss';
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  max-width: 20em;
+  vertical-align: middle;
+}
+
+.nav {
+  display: flex;
+  list-style: none;
+
+  .link {
+    border-bottom: 1px solid transparent;
+    border-radius: 0.5em;
+    color: $green;
+    padding: 0.4em golden-ratio(0.4em);
+    text-decoration: none;
+    transition: all 0.2s;
+
+    &:hover {
+      border-bottom-color: $green;
+    }
+  }
+}
+
+.ui-button {
+  margin-left: 1em;
+}

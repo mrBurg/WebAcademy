@@ -1,11 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import { App } from './components/App';
-
+import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.render(
+import './index.scss';
+
+import { App } from './components/App';
+
+render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
