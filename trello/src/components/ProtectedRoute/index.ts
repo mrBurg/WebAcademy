@@ -1,0 +1,1 @@
+export { PrivateRout } from './ProtectedRoute';
