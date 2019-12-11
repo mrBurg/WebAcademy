@@ -1,5 +1,5 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-export function DashBoard() {
+export function DashBoard(): ReactElement {
   return <p>DashBoard</p>;
 }

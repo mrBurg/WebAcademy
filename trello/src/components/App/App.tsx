@@ -1,92 +1,119 @@
-import React, { Component } from 'react';
-// import { Route, Link } from 'react-router-dom';
+import React, { Component, ReactElement } from 'react';
+import { Route, RouteComponentProps } from 'react-router-dom';
 
 import style from './App.module.scss';
 
 import {
-  // setToLocalStorage,
-  // getFromLocalStorage,
-  clearLocalStorage
+  setToLocalStorage,
+  getFromLocalStorage,
+  removeItemFromLocalStorage
 } from '../../utils';
 
-import { Header } from './../Header';
-// import { TokenExpired } from '../Notifications';
+import { routes } from './Routes';
 
-import { Login } from './../Login';
-import { DashBoard } from './../DashBoard';
+import { Header } from './../Header';
 
 // http://trello-clone-redux.herokuapp.com/
 
-interface Board {
+interface IBoard {
   id: string;
   name: string;
   pinned: boolean;
   desc?: string;
 }
 
-interface AppState {
-  token: string | null;
-  boards: Array<Board>;
+interface IAppState {
+  token: string;
+  boards: Array<IBoard>;
 }
 
-interface AppProps {}
+interface IAppProps {}
 
-export class App extends Component<{}, AppState> {
+interface IRoute {
+  path: string;
+  exact: boolean;
+  component(): ReactElement;
+}
+
+const TOKEN_STORAGE_KEY = 'TOKEN';
+
+export class App extends Component<{}, IAppState> {
   public state = {
     token: '',
     boards: []
   };
 
-  public constructor(props: AppProps) {
+  public constructor(props: IAppProps) {
     super(props);
 
     this.logout = this.logout.bind(this);
   }
 
-  private async setToken(token: string) {
+  private async setToken(token: string): Promise<void> {
     this.setState({ token });
 
-    // await setToLocalStorage(TOKEN_STORAGE_KEY, token);
+    await setToLocalStorage(TOKEN_STORAGE_KEY, token);
   }
 
-  private async getToken() {
-    // let token = await getFromLocalStorage(TOKEN_STORAGE_KEY);
-    // return token;
+  private getToken(): string | null {
+    return getFromLocalStorage(TOKEN_STORAGE_KEY);
   }
 
-  private getTokenFromUrl() {
+  private getTokenFromUrl(): string {
     return window.location.hash.split('=')[1];
   }
 
-  private get isLoggedIn() {
+  private get isLoggedIn(): string {
     return this.state.token;
   }
 
-  private logout() {
-    clearLocalStorage();
+  private logout(): void {
+    removeItemFromLocalStorage(TOKEN_STORAGE_KEY);
 
     this.setState({
       token: ''
     });
   }
 
-  public componentDidMount() {
-    // let savedToken = await this.getToken();
+  public componentDidMount(): void {
+    let savedToken = this.getToken();
     let newToken = this.getTokenFromUrl();
 
-    if (newToken) this.setToken(newToken);
+    if (newToken) this.setToken(savedToken || newToken);
   }
 
-  public render() {
+  public render(): ReactElement {
     return (
       <>
         <Header isLoggedIn={!!this.isLoggedIn} logout={this.logout} />
         <main className={style.main}>
-          {this.isLoggedIn ? <DashBoard /> : <Login />}
-          {/* <Route path="/login" component={User} /> */}
-          {/* <Route path="/" exact component={DashBoard} /> */}
+          {routes.map(
+            (route: any, index: number): ReactElement => {
+              let { path, exact, component } = route;
+
+              return (
+                <Route
+                  key={index}
+                  exact={exact}
+                  path={path}
+                  render={(props: RouteComponentProps): ReactElement => {
+                    console.info(props);
+                    return component;
+                  }}
+                />
+              );
+            }
+          )}
+          <Route
+            path="/"
+            exact
+            render={(): ReactElement => (
+              <h1>
+                Wellcome to <span style={{ color: 'red' }}>Trello Clone</span>
+              </h1>
+            )}
+          />
         </main>
-        {/* <TokenExpired /> */}
       </>
     );
   }

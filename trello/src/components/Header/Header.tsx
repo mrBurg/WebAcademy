@@ -5,12 +5,19 @@ import style from './Header.module.scss';
 
 import Logo from './../../svg/my-trello-logo.svg';
 
-interface HeaderProps {
+import { routes } from './../App/Routes';
+
+interface IProps {
   isLoggedIn: boolean;
   logout(): void;
 }
 
-function SignOut({ isLoggedIn, logout }: HeaderProps): ReactElement | null {
+interface IRoute {
+  path: string;
+  title: string;
+}
+
+function SignOut({ isLoggedIn, logout }: IProps): ReactElement | null {
   if (isLoggedIn) {
     return (
       <div className={style.signout}>
@@ -25,23 +32,26 @@ function SignOut({ isLoggedIn, logout }: HeaderProps): ReactElement | null {
   return null;
 }
 
-export function Header({ isLoggedIn, logout }: HeaderProps): ReactElement {
+export function Header({ isLoggedIn, logout }: IProps): ReactElement {
   return (
     <header className={style.header}>
-      <a href="/">
+      <Link to="/" className={style.link}>
         <img src={Logo} alt="Logo" className={style.logo} />
-      </a>
+      </Link>
       <nav className={style.nav}>
-        <li>
-          <Link to="/Login" className={style.link}>
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link to="/DashBoard" className={style.link}>
-            DashBoard
-          </Link>
-        </li>
+        {routes.map(
+          (route: IRoute, index: number): ReactElement => {
+            let { path, title } = route;
+
+            return (
+              <li key={index}>
+                <Link to={path} className={style.link}>
+                  {title}
+                </Link>
+              </li>
+            );
+          }
+        )}
       </nav>
       <SignOut isLoggedIn={isLoggedIn} logout={logout} />
     </header>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import style from './Login.module.scss';
 
@@ -10,9 +10,8 @@ const {
   REACT_APP_RESPONSE_TYPE,
   REACT_APP_KEY
 } = process.env;
-// const TOKEN_STORAGE_KEY = 'TOKEN';
 
-export function Login() {
+export function Login(): ReactElement {
   let redirectUrl = REACT_APP_REDIRECT_URL,
     expiration = REACT_APP_EXPIRATION,
     appName = REACT_APP_NAME,
@@ -34,8 +33,8 @@ export function Login() {
         This is a simple task manager. To start to work with the maneger log in
         with link below and let's see what have to be done today!
       </p>
-      <div className={style.login}>
-        <a href={requestUrl} className={style.login_link}>
+      <div className={style.button}>
+        <a href={requestUrl} className={style.button_link}>
           Login with Trello account
         </a>
       </div>
