@@ -1,17 +1,15 @@
 import React, { Component, ReactElement } from 'react';
-import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
+import { RouteChildrenProps } from 'react-router';
 
 import style from './App.module.scss';
 
-import {
-  setToLocalStorage,
-  getFromLocalStorage,
-  removeItemFromLocalStorage
-} from '../../utils';
+import { setToLocalStorage, removeItemFromLocalStorage } from '../../utils';
 
 import { routes, IAppRoute } from './Routes';
 
 import { Header } from './../Header';
+import { OAuth } from '../OAuth';
 
 interface IBoard {
   id: string;
@@ -29,50 +27,39 @@ interface IAppProps {}
 
 const TOKEN_STORAGE_KEY = 'TOKEN';
 
-export class App extends Component<{}, IAppState> {
+export class App extends Component<IAppProps, IAppState> {
   public state = {
     token: '',
     boards: []
   };
 
-  public constructor(props: IAppProps) {
-    super(props);
-
-    this.logout = this.logout.bind(this);
-  }
-
-  private async setToken(token: string): Promise<void> {
+  private setToken = (token: string): void => {
     this.setState({ token });
 
-    await setToLocalStorage(TOKEN_STORAGE_KEY, token);
-  }
+    setToLocalStorage(TOKEN_STORAGE_KEY, token);
+  };
 
-  private getToken(): string | null {
-    return getFromLocalStorage(TOKEN_STORAGE_KEY);
-  }
-
-  private getTokenFromUrl(): string {
-    return window.location.hash.split('=')[1];
-  }
+  // private getToken(): string | null {
+  //   return getFromLocalStorage(TOKEN_STORAGE_KEY);
+  // }
 
   private get isLoggedIn(): string {
     return this.state.token;
   }
 
-  private logout(): void {
+  private logout = (): void => {
     removeItemFromLocalStorage(TOKEN_STORAGE_KEY);
 
     this.setState({
       token: ''
     });
-  }
+  };
 
-  public componentDidMount(): void {
-    let savedToken = this.getToken();
-    let newToken = this.getTokenFromUrl();
+  // public componentDidMount(): void {
+  //   let savedToken = this.getToken();
 
-    if (newToken) this.setToken(savedToken || newToken);
-  }
+  //   if (newToken) this.setToken(savedToken || newToken);
+  // }
 
   public render(): ReactElement {
     return (
@@ -96,7 +83,14 @@ export class App extends Component<{}, IAppState> {
                 );
               }
             )}
-            {/* <Redirect to="/login" /> */}
+
+            <Route
+              path="/oauth"
+              render={(props: RouteChildrenProps) => (
+                <OAuth {...props} onSetToken={this.setToken} />
+              )}
+            />
+            <Redirect to="/404" />
           </Switch>
         </main>
       </>

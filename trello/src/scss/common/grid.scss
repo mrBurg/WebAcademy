@@ -21,10 +21,7 @@ body,
 
 body {
   background: transparent url('/images/theme/main_background.jpg');
+  color: $green-darker;
   justify-content: center;
-  padding: 1em;
-}
-
-#root {
-  max-width: $max-width;
+  min-width: $min-width;
 }

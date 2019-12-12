@@ -1,3 +1,8 @@
 %box-shadow {
-  box-shadow: 0.3em 0.3em 0.3em transparentize($black, 0.7);
+  box-shadow: 0.2em 0.2em 0.2em transparentize($black, 0.8);
+}
+
+%page-edges {
+  box-sizing: border-box;
+  padding: 0 1em;
 }

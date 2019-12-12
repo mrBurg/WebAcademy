@@ -7,11 +7,12 @@ $max-width: 60em;
 $transiton: all 0.2s;
 
 $black: #000;
-$gray: #ccc;
 $green: #004d40;
+$white: #fff;
+
+$background-color: lighten($green, 25%);
 $green-lighter: lighten($green, 10%);
 $green-darker: darken($green, 10%);
-$white: #fff;
 
 $prefixes: -webkit-, -moz-, -ms-, -o-;
 
@@ -29,7 +30,7 @@ $xxl: 1600;
     green-lighter: $green-lighter;
   }*/
 
-  width: {
+  /*width: {
     xxs: $xxs;
     xs: $xs;
     sm: $sm;
@@ -37,5 +38,5 @@ $xxl: 1600;
     lg: $lg;
     xl: $xl;
     xxl: $xxl;
-  }
+  }*/
 }

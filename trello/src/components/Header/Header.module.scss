@@ -1,14 +1,17 @@
 @import './../../scss/services/functions.scss';
 @import './../../scss/services/constans.scss';
+@import './../../scss/services/placeholders.scss';
 
 .header {
+  @extend %page-edges;
   align-items: center;
+  background-color: $background-color;
   display: flex;
   justify-content: space-between;
 }
 
 .logo {
-  max-width: 20em;
+  max-width: 10em;
   vertical-align: middle;
 }
 
@@ -25,7 +28,7 @@
     transition: all 0.2s;
 
     &:hover {
-      border-bottom-color: $green;
+      border-bottom-color: $green-darker;
     }
   }
 }

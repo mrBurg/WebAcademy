@@ -1,3 +1,16 @@
-export function OAuth() {
-  return '456';
+import React, { FunctionComponent } from 'react';
+import { RouteChildrenProps, Redirect } from 'react-router';
+
+interface IOAuthProps extends RouteChildrenProps {
+  onSetToken: (token: string) => void;
 }
+
+export const OAuth: FunctionComponent<IOAuthProps> = ({
+  location: { hash },
+  onSetToken
+}: IOAuthProps) => {
+  const token = hash.split('=')[1];
+
+  onSetToken(token);
+  return <Redirect to="/dashBoard" />;
+};
