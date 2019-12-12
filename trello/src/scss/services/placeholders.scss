@@ -1,8 +1,10 @@
+@import './functions.scss';
+
 %box-shadow {
   box-shadow: 0.2em 0.2em 0.2em transparentize($black, 0.8);
 }
 
-%page-edges {
+%edges {
   box-sizing: border-box;
-  padding: 0 1em;
+  padding: 0.5em golden-ratio(0.5em);
 }

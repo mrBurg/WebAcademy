@@ -85,12 +85,12 @@ export class App extends Component<IAppProps, IAppState> {
             )}
 
             <Route
-              path="/oauth"
+              path='/oauth'
               render={(props: RouteChildrenProps) => (
                 <OAuth {...props} onSetToken={this.setToken} />
               )}
             />
-            <Redirect to="/404" />
+            <Redirect to='/404' />
           </Switch>
         </main>
       </>

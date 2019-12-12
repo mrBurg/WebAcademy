@@ -3,7 +3,7 @@
 @import './../../scss/services/placeholders.scss';
 
 .header {
-  @extend %page-edges;
+  @extend %edges;
   align-items: center;
   background-color: $background-color;
   display: flex;

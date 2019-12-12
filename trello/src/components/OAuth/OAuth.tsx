@@ -12,5 +12,5 @@ export const OAuth: FunctionComponent<IOAuthProps> = ({
   const token = hash.split('=')[1];
 
   onSetToken(token);
-  return <Redirect to="/dashBoard" />;
+  return <Redirect to='/dashBoard' />;
 };

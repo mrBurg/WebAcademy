@@ -41,7 +41,7 @@ export const routes: Array<IAppRoute> = [
   {
     path: '/',
     exact: true,
-    render: () => <Redirect to="/login" />,
+    render: () => <Redirect to='/login' />,
     isHidden: true
   },
   {

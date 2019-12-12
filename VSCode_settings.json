@@ -1,0 +1,23 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "svipas.prettier-plus"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "svipas.prettier-plus"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "svipas.prettier-plus"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "svipas.prettier-plus"
+  },
+  "editor.defaultFormatter": "svipas.prettier-plus",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "html.format.indentInnerHtml": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleQuote": true,
+  "files.trimFinalNewlines": true
+}
