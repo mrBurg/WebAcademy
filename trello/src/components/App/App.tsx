@@ -8,7 +8,8 @@ import { setToLocalStorage, removeItemFromLocalStorage } from '../../utils';
 import { routes, IAppRoute } from './Routes';
 
 import { Header } from './../Header';
-import { OAuth } from '../OAuth';
+import { OAuth } from './../OAuth';
+import { ProtectedRoute } from '../ProtectedRoute';
 
 interface IBoard {
   id: string;
@@ -50,28 +51,38 @@ export class App extends Component<IAppProps, IAppState> {
     });
   };
 
+  private renderRoute = (route: IAppRoute, index: number): ReactElement => {
+    if (route.isProtected) {
+      return (
+        <ProtectedRoute
+          key={index}
+          isAuthenticated={this.isLoggedIn}
+          {...route}
+        />
+      );
+    } else {
+      let { path, exact, render } = route;
+
+      return (
+        <Route
+          key={index}
+          exact={exact}
+          path={path}
+          render={(props: RouteChildrenProps): ReactElement =>
+            render({ ...props, token: this.state.token })
+          }
+        />
+      );
+    }
+  };
+
   public render(): ReactElement {
     return (
       <>
         <Header isLoggedIn={this.isLoggedIn} logout={this.logout} />
         <main className={style.main}>
           <Switch>
-            {routes.map(
-              (route: IAppRoute, index: number): ReactElement => {
-                let { path, exact, render } = route;
-
-                return (
-                  <Route
-                    key={index}
-                    exact={exact}
-                    path={path}
-                    render={(props: RouteChildrenProps): ReactElement =>
-                      render({ ...props, token: this.state.token })
-                    }
-                  />
-                );
-              }
-            )}
+            {routes.map(this.renderRoute)}
 
             <Route
               path='/oauth'

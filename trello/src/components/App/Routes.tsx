@@ -7,7 +7,7 @@ import { NotFound } from '../NotFound';
 // import { OAuth } from "../OAuth";
 
 export interface IRouteChildrenProps extends RouteChildrenProps {
-  token: string;
+  token?: string;
 }
 
 export interface IAppRoute {
@@ -16,6 +16,7 @@ export interface IAppRoute {
   title?: string;
   exact?: boolean;
   isHidden?: boolean;
+  isProtected?: boolean;
 }
 
 export const routes: Array<IAppRoute> = [
@@ -27,7 +28,8 @@ export const routes: Array<IAppRoute> = [
   {
     path: '/dashBoard',
     render: props => <DashBoard {...props} />,
-    title: 'DashBoard'
+    title: 'DashBoard',
+    isProtected: true
   },
   // {
   // path: "/oauth",
