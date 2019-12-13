@@ -8,7 +8,7 @@ import {
   RouteChildrenProps
 } from 'react-router';
 import { NotFound } from '../NotFound';
-// import { OAuth } from '../OAuth';
+// import { OAuth } from "../OAuth";
 
 interface IRouteComponentProps extends RouteComponentProps, RouteChildrenProps {
   token: string;
@@ -34,9 +34,9 @@ export const routes: Array<IAppRoute> = [
     title: 'DashBoard'
   },
   // {
-  //   path: '/oauth',
-  //   render: (props: RouteChildrenProps) => <OAuth {...props} />,
-  //   isHidden: true
+  // path: "/oauth",
+  // render: (props: RouteChildrenProps) => <OAuth {...props} />,
+  // isHidden: true
   // },
   {
     path: '/',

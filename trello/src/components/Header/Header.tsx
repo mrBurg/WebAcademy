@@ -30,8 +30,8 @@ function SignOut({ isLoggedIn, logout }: ISignOutProps): ReactElement | null {
 export function Header({ isLoggedIn, logout }: ISignOutProps): ReactElement {
   return (
     <header className={style.header}>
-      <Link to="/" className={style.link}>
-        <img src={Logo} alt="Logo" className={style.logo} />
+      <Link to='/' className={style.link}>
+        <img src={Logo} alt='Logo' className={style.logo} />
       </Link>
       <nav className={style.nav}>
         {routes.map((route: IAppRoute, index: number): ReactElement | null => {

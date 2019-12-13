@@ -14,10 +14,12 @@
   "editor.defaultFormatter": "svipas.prettier-plus",
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
   "html.format.indentInnerHtml": true,
   "prettier.jsxSingleQuote": true,
   "prettier.singleQuote": true,
-  "files.trimFinalNewlines": true
+  "files.trimFinalNewlines": true,
+  "coffescriptFormatter.enable": true
 }

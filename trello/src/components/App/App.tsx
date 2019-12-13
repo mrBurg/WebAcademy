@@ -40,7 +40,7 @@ export class App extends Component<IAppProps, IAppState> {
   };
 
   // private getToken(): string | null {
-  //   return getFromLocalStorage(TOKEN_STORAGE_KEY);
+  // return getFromLocalStorage(TOKEN_STORAGE_KEY);
   // }
 
   private get isLoggedIn(): string {
@@ -56,9 +56,9 @@ export class App extends Component<IAppProps, IAppState> {
   };
 
   // public componentDidMount(): void {
-  //   let savedToken = this.getToken();
+  // let savedToken = this.getToken();
 
-  //   if (newToken) this.setToken(savedToken || newToken);
+  // if (newToken) this.setToken(savedToken || newToken);
   // }
 
   public render(): ReactElement {
