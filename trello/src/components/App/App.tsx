@@ -1,15 +1,26 @@
-import React, { Component, ReactElement } from 'react';
-import { Route, RouteChildrenProps, Switch, Redirect } from 'react-router-dom';
+import React, { Component, ReactElement, ComponentClass } from 'react';
+import {
+  Route,
+  RouteChildrenProps,
+  Switch,
+  Redirect,
+  withRouter,
+  RouteComponentProps
+} from 'react-router-dom';
 
 import style from './App.module.scss';
 
-import { setToLocalStorage, removeItemFromLocalStorage } from '../../utils';
+import {
+  setToLocalStorage,
+  removeItemFromLocalStorage,
+  getFromLocalStorage
+} from '../../utils';
 
 import { routes, IAppRoute } from './Routes';
 
 import { Header } from './../Header';
 import { OAuth } from './../OAuth';
-import { ProtectedRoute } from '../ProtectedRoute';
+import { ProtectedRoute } from '../ProtectedRoutes';
 
 interface IBoard {
   id: string;
@@ -21,16 +32,19 @@ interface IBoard {
 interface IAppState {
   token: string;
   boards: Array<IBoard>;
+  userProfile: any;
 }
 
-interface IAppProps {}
+interface IAppProps extends RouteComponentProps {}
 
 const TOKEN_STORAGE_KEY = 'TOKEN';
+const { REACT_APP_KEY } = process.env;
 
-export class App extends Component<IAppProps, IAppState> {
+class App extends Component<IAppProps, IAppState> {
   public state = {
     token: '',
-    boards: []
+    boards: [],
+    userProfile: null
   };
 
   private setToken = (token: string): void => {
@@ -39,8 +53,34 @@ export class App extends Component<IAppProps, IAppState> {
     setToLocalStorage(TOKEN_STORAGE_KEY, token);
   };
 
+  private async getToken() {
+    if (this.state.token) {
+      return;
+    }
+
+    const token = getFromLocalStorage(TOKEN_STORAGE_KEY);
+
+    if (!token) {
+      return this.navigateToLogin();
+    }
+
+    const url = `https://api.trello.com/1/members/me/boards?key=${REACT_APP_KEY}&token=${this.state.token}`;
+
+    const { status, ok, ...response } = await fetch(url);
+
+    if (ok && status === 200) {
+      const userProfile = await response.json();
+
+      this.setState({ userProfile, token });
+
+      return this.navigateToDashboard();
+    }
+
+    return this.navigateToLogin();
+  }
+
   private get isLoggedIn(): boolean {
-    return !!this.state.token;
+    return Boolean(this.state.token);
   }
 
   private logout = (): void => {
@@ -51,18 +91,32 @@ export class App extends Component<IAppProps, IAppState> {
     });
   };
 
+  private navigateToLogin() {
+    this.props.history.push('/login');
+  }
+
+  private navigateToDashboard() {
+    this.props.history.push('/dashboard');
+  }
+
+  public componentDidMount(): void {
+    this.getToken();
+  }
+
   private renderRoute = (route: IAppRoute, index: number): ReactElement => {
+    let { path, exact, render } = route;
+
     if (route.isProtected) {
       return (
         <ProtectedRoute
           key={index}
+          exact={exact}
+          path={path}
+          render={render}
           isAuthenticated={this.isLoggedIn}
-          {...route}
         />
       );
     } else {
-      let { path, exact, render } = route;
-
       return (
         <Route
           key={index}
@@ -97,3 +151,7 @@ export class App extends Component<IAppProps, IAppState> {
     );
   }
 }
+
+const AppWithRouter: ComponentClass = withRouter(App);
+
+export { AppWithRouter as App };
