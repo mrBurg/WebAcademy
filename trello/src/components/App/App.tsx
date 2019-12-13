@@ -1,6 +1,5 @@
 import React, { Component, ReactElement } from 'react';
-import { Route, RouteComponentProps, Switch, Redirect } from 'react-router-dom';
-import { RouteChildrenProps } from 'react-router';
+import { Route, RouteChildrenProps, Switch, Redirect } from 'react-router-dom';
 
 import style from './App.module.scss';
 
@@ -39,12 +38,8 @@ export class App extends Component<IAppProps, IAppState> {
     setToLocalStorage(TOKEN_STORAGE_KEY, token);
   };
 
-  // private getToken(): string | null {
-  // return getFromLocalStorage(TOKEN_STORAGE_KEY);
-  // }
-
-  private get isLoggedIn(): string {
-    return this.state.token;
+  private get isLoggedIn(): boolean {
+    return !!this.state.token;
   }
 
   private logout = (): void => {
@@ -55,16 +50,10 @@ export class App extends Component<IAppProps, IAppState> {
     });
   };
 
-  // public componentDidMount(): void {
-  // let savedToken = this.getToken();
-
-  // if (newToken) this.setToken(savedToken || newToken);
-  // }
-
   public render(): ReactElement {
     return (
       <>
-        <Header isLoggedIn={!!this.isLoggedIn} logout={this.logout} />
+        <Header isLoggedIn={this.isLoggedIn} logout={this.logout} />
         <main className={style.main}>
           <Switch>
             {routes.map(
@@ -76,7 +65,7 @@ export class App extends Component<IAppProps, IAppState> {
                     key={index}
                     exact={exact}
                     path={path}
-                    render={(props: RouteComponentProps): ReactElement =>
+                    render={(props: RouteChildrenProps): ReactElement =>
                       render({ ...props, token: this.state.token })
                     }
                   />

@@ -2,21 +2,17 @@ import React, { ReactElement } from 'react';
 
 import { Login } from '../Login';
 import { DashBoard } from '../DashBoard';
-import {
-  Redirect,
-  RouteComponentProps,
-  RouteChildrenProps
-} from 'react-router';
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 import { NotFound } from '../NotFound';
 // import { OAuth } from "../OAuth";
 
-interface IRouteComponentProps extends RouteComponentProps, RouteChildrenProps {
+export interface IRouteChildrenProps extends RouteChildrenProps {
   token: string;
 }
 
 export interface IAppRoute {
   path: string;
-  render: (props: IRouteComponentProps) => ReactElement;
+  render: (props: IRouteChildrenProps) => ReactElement;
   title?: string;
   exact?: boolean;
   isHidden?: boolean;
@@ -46,7 +42,7 @@ export const routes: Array<IAppRoute> = [
   },
   {
     path: '/404',
-    render: (props: RouteChildrenProps) => <NotFound {...props} />,
+    render: (props: IRouteChildrenProps) => <NotFound {...props} />,
     isHidden: true
   }
 ];

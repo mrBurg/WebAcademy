@@ -1,5 +1,5 @@
 import React, { ReactElement, Component } from 'react';
-import { RouteChildrenProps } from 'react-router';
+import { RouteChildrenProps } from 'react-router-dom';
 
 interface IDashBoardProps extends RouteChildrenProps {
   token?: string;

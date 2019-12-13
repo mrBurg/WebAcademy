@@ -617,6 +617,9 @@
 	],
 	"file_history":
 	[
+		"/D/WebAcademy/trello/src/components/App/Routes.tsx",
+		"/D/WebAcademy/trello/src/components/OAuth/OAuth.tsx",
+		"/D/WebAcademy/trello/src/components/NotFound/NotFound.tsx",
 		"/D/WebAcademyCourse/group_2511/.vscode/settings.json",
 		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/ro/webapp/views/subforms/application.xhtml",
 		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/ro/src/coffee/partials/interfaceAPI.coffee",
@@ -741,10 +744,7 @@
 		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/webpack/modules/rules.js",
 		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/nv/webapp/templates/masterTemplate.xhtml",
 		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/nz/webapp/ctemplates/subforms/about_loan.xhtml",
-		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/ro/src/coffee/partials/supported-alert.coffee",
-		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/nv/webapp/ctemplates/subforms/about_loan.xhtml",
-		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/nz/src/js/modules/interfaceAPI.js",
-		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/nz/webapp/ctemplates/subforms/about_deal.xhtml"
+		"/D/Work/Projects/MDFin.Bluemix.CreditProcess/front/locales/ro/src/coffee/partials/supported-alert.coffee"
 	],
 	"find":
 	{
@@ -755,6 +755,8 @@
 		"height": 116.0,
 		"where_history":
 		[
+			"D:\\WebAcademy\\trello\\src",
+			""
 		]
 	},
 	"find_state":
@@ -762,6 +764,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"RouteChildrenProps"
 		],
 		"highlight": true,
 		"in_selection": false,

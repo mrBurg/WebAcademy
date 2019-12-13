@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { RouteChildrenProps, Redirect } from 'react-router';
+import { RouteChildrenProps, Redirect } from 'react-router-dom';
 
 interface IOAuthProps extends RouteChildrenProps {
   onSetToken: (token: string) => void;

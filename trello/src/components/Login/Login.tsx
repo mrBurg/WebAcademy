@@ -1,11 +1,8 @@
 import React, { ReactElement } from 'react';
 
 import style from './Login.module.scss';
-import { RouteChildrenProps } from 'react-router';
 
-interface ILoginProps extends RouteChildrenProps {
-  token: string;
-}
+import { IRouteChildrenProps } from '../App/Routes';
 
 const {
   REACT_APP_REDIRECT_URL,
@@ -16,9 +13,7 @@ const {
   REACT_APP_KEY
 } = process.env;
 
-export function Login(props: ILoginProps): ReactElement {
-  console.info(props);
-
+export function Login(props: IRouteChildrenProps): ReactElement {
   let redirectUrl = REACT_APP_REDIRECT_URL,
     expiration = REACT_APP_EXPIRATION,
     appName = REACT_APP_NAME,
