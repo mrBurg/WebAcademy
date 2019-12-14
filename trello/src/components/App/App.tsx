@@ -30,22 +30,23 @@ interface IBoard {
 }
 
 interface IAppState {
-  token: string;
+  token: string | null;
   boards: Array<IBoard>;
   userProfile: any;
 }
 
 interface IAppProps extends RouteComponentProps {}
 
-const TOKEN_STORAGE_KEY = 'TOKEN';
+const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
 const { REACT_APP_KEY } = process.env;
-
-class App extends Component<IAppProps, IAppState> {
-  public state = {
-    token: '',
+const INITIAL_STATE = {
+    token: null,
     boards: [],
     userProfile: null
-  };
+  }
+
+class App extends Component<IAppProps, IAppState> {
+  public state = INITIAL_STATE;
 
   private setToken = (token: string): void => {
     this.setState({ token });
@@ -64,9 +65,11 @@ class App extends Component<IAppProps, IAppState> {
       return this.navigateToLogin();
     }
 
-    const url = `https://api.trello.com/1/members/me/boards?key=${REACT_APP_KEY}&token=${this.state.token}`;
+    const url = `https://api.trello.com/1/members/me?key=${REACT_APP_KEY}&token=${token}`;
 
-    const { status, ok, ...response } = await fetch(url);
+    const response = await fetch(url);
+
+    let { ok, status } = response;
 
     if (ok && status === 200) {
       const userProfile = await response.json();
@@ -86,9 +89,8 @@ class App extends Component<IAppProps, IAppState> {
   private logout = (): void => {
     removeItemFromLocalStorage(TOKEN_STORAGE_KEY);
 
-    this.setState({
-      token: ''
-    });
+    this.setState(INITIAL_STATE);
+    this.navigateToLogin();
   };
 
   private navigateToLogin() {

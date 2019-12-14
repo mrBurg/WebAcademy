@@ -7,7 +7,7 @@ import { NotFound } from '../NotFound';
 // import { OAuth } from "../OAuth";
 
 export interface IRouteChildrenProps extends RouteChildrenProps {
-  token?: string;
+  token?: string | null;
 }
 
 export interface IAppRoute {
@@ -21,30 +21,30 @@ export interface IAppRoute {
 
 export const routes: Array<IAppRoute> = [
   {
-    path: '/login',
-    render: props => <Login {...props} />,
-    title: 'login'
-  },
-  {
     path: '/dashBoard',
     render: props => <DashBoard {...props} />,
     title: 'DashBoard',
     isProtected: true
   },
+  {
+    path: '/login',
+    render: props => <Login {...props} />,
+    title: 'login'
+  },  
   // {
   // path: "/oauth",
   // render: (props: RouteChildrenProps) => <OAuth {...props} />,
   // isHidden: true
   // },
   {
-    path: '/',
-    exact: true,
-    render: () => <Redirect to='/login' />,
+    path: '/404',
+    render: (props: IRouteChildrenProps) => <NotFound {...props} />,
     isHidden: true
   },
   {
-    path: '/404',
-    render: (props: IRouteChildrenProps) => <NotFound {...props} />,
+    path: '/',
+    exact: true,
+    render: () => <Redirect to='/login' />,
     isHidden: true
   }
 ];

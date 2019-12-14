@@ -1,11 +1,7 @@
 import React, { ReactElement, Component } from 'react';
-import { RouteChildrenProps } from 'react-router-dom';
+import { IRouteChildrenProps } from '../App/Routes';
 
-interface IDashBoardProps extends RouteChildrenProps {
-  token?: string;
-}
-
-export class DashBoard extends Component<IDashBoardProps> {
+export class DashBoard extends Component<IRouteChildrenProps> {
   private goBack = (): void => {
     this.props.history.goBack();
   };
