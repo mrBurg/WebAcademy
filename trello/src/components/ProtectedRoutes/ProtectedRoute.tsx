@@ -5,6 +5,7 @@ import {
   RouteProps,
   RouteComponentProps
 } from 'react-router-dom';
+import { URLS } from '../App/Routes';
 
 interface IProtectedRouteProps extends RouteProps {
   isAuthenticated: boolean;
@@ -24,7 +25,7 @@ export const ProtectedRoute: FunctionComponent<IProtectedRouteProps> = ({
         ) : (
           <Redirect
             to={{
-              pathname: '/login'
+              pathname: URLS.LOGIN
               // state: { routeComponentProps: location }
             }}
           />

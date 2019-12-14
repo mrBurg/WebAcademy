@@ -11,7 +11,7 @@ export interface IRouteChildrenProps extends RouteChildrenProps {
 }
 
 export interface IAppRoute {
-  path: string;
+  path: URLS;
   render: (props: IRouteChildrenProps) => ReactElement;
   title?: string;
   exact?: boolean;
@@ -19,32 +19,40 @@ export interface IAppRoute {
   isProtected?: boolean;
 }
 
+export enum URLS {
+  HOME = '/',
+  LOGIN = '/login',
+  DASH_BOARD = '/dashBoard',
+  NOT_FOUND = '/404',
+  OAUTH = '/oauth'
+}
+
 export const routes: Array<IAppRoute> = [
   {
-    path: '/dashBoard',
+    path: URLS.DASH_BOARD,
     render: props => <DashBoard {...props} />,
     title: 'DashBoard',
     isProtected: true
   },
   {
-    path: '/login',
+    path: URLS.LOGIN,
     render: props => <Login {...props} />,
     title: 'login'
-  },  
+  },
   // {
   // path: "/oauth",
   // render: (props: RouteChildrenProps) => <OAuth {...props} />,
   // isHidden: true
   // },
   {
-    path: '/404',
+    path: URLS.NOT_FOUND,
     render: (props: IRouteChildrenProps) => <NotFound {...props} />,
     isHidden: true
   },
   {
-    path: '/',
+    path: URLS.HOME,
     exact: true,
-    render: () => <Redirect to='/login' />,
+    render: () => <Redirect to={URLS.LOGIN} />,
     isHidden: true
   }
 ];

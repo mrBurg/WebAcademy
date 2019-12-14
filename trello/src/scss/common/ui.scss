@@ -13,4 +13,8 @@
     box-shadow: none;
     color: $white;
   }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
 }

@@ -4,25 +4,31 @@ import { Link } from 'react-router-dom';
 import style from './Header.module.scss';
 
 import Logo from './../../svg/my-trello-logo.svg';
+import SignIn from './../../svg/sign-in.svg';
+import SignOut from './../../svg/sign-out.svg';
 
 import { routes, IAppRoute } from './../App/Routes';
 
 interface ISignOutProps {
-  (): void;
+  isLoggedIn: boolean;
+  logout(): void;
 }
 
 interface IHeaderProps {
-  logout(): void;
   isLoggedIn: boolean;
+  logout(): void;
 }
 
 export class Header extends Component<IHeaderProps> {
-  private renderSignOut = (logout: ISignOutProps): ReactElement => {
+  private renderSignOut = ({
+    isLoggedIn,
+    logout
+  }: ISignOutProps): ReactElement => {
     return (
       <div className={style.signout}>
         Let's be motivated!
         <button className={`ui-button ${style['ui-button']}`} onClick={logout}>
-          Sign Out
+          <img src={isLoggedIn ? SignOut : SignIn} alt='SignOut' />
         </button>
       </div>
     );
@@ -51,7 +57,8 @@ export class Header extends Component<IHeaderProps> {
             }
           )}
         </nav>
-        {isLoggedIn && this.renderSignOut(logout)}
+        {/* {isLoggedIn && this.renderSignOut(logout)} */}
+        {this.renderSignOut({ isLoggedIn, logout })}
       </header>
     );
   }

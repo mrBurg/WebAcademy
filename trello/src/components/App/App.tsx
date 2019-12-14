@@ -16,7 +16,7 @@ import {
   getFromLocalStorage
 } from '../../utils';
 
-import { routes, IAppRoute } from './Routes';
+import { routes, IAppRoute, URLS } from './Routes';
 
 import { Header } from './../Header';
 import { OAuth } from './../OAuth';
@@ -31,8 +31,8 @@ interface IBoard {
 
 interface IAppState {
   token: string | null;
-  boards: Array<IBoard>;
-  userProfile: any;
+  boards: Array<IBoard> | null;
+  userProfile: any | null;
 }
 
 interface IAppProps extends RouteComponentProps {}
@@ -41,7 +41,7 @@ const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
 const { REACT_APP_KEY } = process.env;
 const INITIAL_STATE = {
     token: null,
-    boards: [],
+    boards: null,
     userProfile: null
   }
 
@@ -65,7 +65,9 @@ class App extends Component<IAppProps, IAppState> {
       return this.navigateToLogin();
     }
 
-    const url = `https://api.trello.com/1/members/me?key=${REACT_APP_KEY}&token=${token}`;
+    const url = `https://api.trello.com/1/members/me
+      ?key=${REACT_APP_KEY}
+      &token=${token}`.replace(/[\s\n]/g, '');
 
     const response = await fetch(url);
 
@@ -94,11 +96,11 @@ class App extends Component<IAppProps, IAppState> {
   };
 
   private navigateToLogin() {
-    this.props.history.push('/login');
+    this.props.history.push(URLS.LOGIN);
   }
 
   private navigateToDashboard() {
-    this.props.history.push('/dashboard');
+    this.props.history.push(URLS.DASH_BOARD);
   }
 
   public componentDidMount(): void {
@@ -141,12 +143,12 @@ class App extends Component<IAppProps, IAppState> {
             {routes.map(this.renderRoute)}
 
             <Route
-              path='/oauth'
+              path={URLS.OAUTH}
               render={(props: RouteChildrenProps) => (
                 <OAuth {...props} onSetToken={this.setToken} />
               )}
             />
-            <Redirect to='/404' />
+            <Redirect to={URLS.NOT_FOUND} />
           </Switch>
         </main>
       </>
