@@ -7,6 +7,12 @@ export class DashBoard extends Component<IRouteChildrenProps> {
   };
 
   render(): ReactElement {
-    return <p onClick={this.goBack}>DashBoard</p>;
+    let { boards } = this.props;
+
+    if (!boards) {
+      return <p onClick={this.goBack}>Nothing to render</p>;
+    }
+
+    return <p>DashBoard</p>;
   }
 }

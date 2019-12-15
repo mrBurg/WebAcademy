@@ -7,8 +7,12 @@ import { UserProfile } from '../UserProfile';
 import { NotFound } from '../NotFound';
 // import { OAuth } from "../OAuth";
 
+import { IUserProfile, IBoard } from './../App/App';
+
 export interface IRouteChildrenProps extends RouteChildrenProps {
   token?: string | null;
+  profile?: IUserProfile | null;
+  boards?: Array<IBoard> | null;
 }
 
 export interface IAppRoute {

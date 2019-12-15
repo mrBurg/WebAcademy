@@ -22,14 +22,14 @@ import { Header } from './../Header';
 import { OAuth } from './../OAuth';
 import { ProtectedRoute } from '../ProtectedRoutes';
 
-interface IUserProfile {
+export interface IUserProfile {
   id: string,
   fullName: string,
   email: string,
   url: string
 }
 
-interface IBoard {
+export interface IBoard {
   id: string;
   name: string;
   pinned: boolean;
@@ -125,6 +125,8 @@ class App extends Component<IAppProps, IAppState> {
           path={path}
           render={render}
           isAuthenticated={this.isLoggedIn}
+          profile={this.state.userProfile}
+          boards={this.state.boards}
         />
       );
     } else {
