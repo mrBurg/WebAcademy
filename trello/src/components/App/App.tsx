@@ -22,6 +22,13 @@ import { Header } from './../Header';
 import { OAuth } from './../OAuth';
 import { ProtectedRoute } from '../ProtectedRoutes';
 
+interface IUserProfile {
+  id: string,
+  fullName: string,
+  email: string,
+  url: string
+}
+
 interface IBoard {
   id: string;
   name: string;
@@ -32,7 +39,7 @@ interface IBoard {
 interface IAppState {
   token: string | null;
   boards: Array<IBoard> | null;
-  userProfile: any | null;
+  userProfile: IUserProfile | null;
 }
 
 interface IAppProps extends RouteComponentProps {}
@@ -109,7 +116,7 @@ class App extends Component<IAppProps, IAppState> {
 
   private renderRoute = (route: IAppRoute, index: number): ReactElement => {
     let { path, exact, render } = route;
-
+    
     if (route.isProtected) {
       return (
         <ProtectedRoute

@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
+import { Redirect, RouteChildrenProps } from 'react-router-dom';
 
 import { Login } from '../Login';
 import { DashBoard } from '../DashBoard';
-import { Redirect, RouteChildrenProps } from 'react-router-dom';
+import { UserProfile } from '../UserProfile';
 import { NotFound } from '../NotFound';
 // import { OAuth } from "../OAuth";
 
@@ -22,7 +23,8 @@ export interface IAppRoute {
 export enum URLS {
   HOME = '/',
   LOGIN = '/login',
-  DASH_BOARD = '/dashBoard',
+  DASH_BOARD = '/dashboard',
+  USER_PROFILE = '/profile',
   NOT_FOUND = '/404',
   OAUTH = '/oauth'
 }
@@ -32,6 +34,12 @@ export const routes: Array<IAppRoute> = [
     path: URLS.DASH_BOARD,
     render: props => <DashBoard {...props} />,
     title: 'DashBoard',
+    isProtected: true
+  },
+  {
+    path: URLS.USER_PROFILE,
+    render: props => <UserProfile {...props} />,
+    title: 'Profile',
     isProtected: true
   },
   {
