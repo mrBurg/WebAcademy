@@ -23,10 +23,10 @@ import { OAuth } from './../OAuth';
 import { ProtectedRoute } from '../ProtectedRoutes';
 
 export interface IUserProfile {
-  id: string,
-  fullName: string,
-  email: string,
-  url: string
+  id: string;
+  fullName: string;
+  email: string;
+  url: string;
 }
 
 export interface IBoard {
@@ -47,10 +47,10 @@ interface IAppProps extends RouteComponentProps {}
 const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
 const { REACT_APP_KEY } = process.env;
 const INITIAL_STATE = {
-    token: null,
-    boards: null,
-    userProfile: null
-  }
+  token: null,
+  boards: null,
+  userProfile: null
+};
 
 class App extends Component<IAppProps, IAppState> {
   public state = INITIAL_STATE;
@@ -116,7 +116,7 @@ class App extends Component<IAppProps, IAppState> {
 
   private renderRoute = (route: IAppRoute, index: number): ReactElement => {
     let { path, exact, render } = route;
-    
+
     if (route.isProtected) {
       return (
         <ProtectedRoute
