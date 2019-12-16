@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 
 import style from './Login.module.scss';
 
-import { IRouteChildrenProps } from '../App/Routes';
+import { IRouteChildrenProps } from '../Routes';
 
 const {
   REACT_APP_REDIRECT_URL,

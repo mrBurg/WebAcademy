@@ -1,4 +1,47 @@
-form {
+.form {
   align-self: center;
+  margin-top: 1em;
   min-width: 36em;
+}
+
+.fieldset {
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+.legend {
+  font-size: 1.5em;
+}
+
+.field {
+  align-items: center;
+  display: flex;
+  margin: 0.5em 0;
+}
+
+.label,
+.input {
+  flex-basis: 50%;
+}
+
+.label {
+  flex-shrink: 0;
+}
+
+.input {
+  padding: 0.5em;
+}
+
+.ui-button {
+  background: transparent url('/images/theme/icons_24x24.svg') -168px 0 no-repeat;
+  border: none;
+  display: block;
+  flex-shrink: 0;
+  height: 24px;
+  margin-left: 0.5em;
+  width: 24px;
+
+  &:hover {
+    background-color: transparent;
+  }
 }

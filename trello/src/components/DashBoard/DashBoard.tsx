@@ -1,5 +1,5 @@
 import React, { ReactElement, Component } from 'react';
-import { IRouteChildrenProps } from '../App/Routes';
+import { IRouteChildrenProps } from '../Routes';
 
 export class DashBoard extends Component<IRouteChildrenProps> {
   private goBack = (): void => {

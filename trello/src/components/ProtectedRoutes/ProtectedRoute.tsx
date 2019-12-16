@@ -6,9 +6,10 @@ import {
   RouteComponentProps
 } from 'react-router-dom';
 
-import { IUserProfile, IBoard } from './../App/App';
+import { IBoard } from './../App/App';
 
-import { URLS } from '../App/Routes';
+import { URLS } from '../Routes';
+import { IUserProfile } from '../UserProfile';
 
 interface IProtectedRouteProps extends RouteProps {
   isAuthenticated: boolean;

@@ -24,3 +24,12 @@ body {
   color: $green-darker;
   min-width: $min-width;
 }
+
+a {
+  color: $green-lighter;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

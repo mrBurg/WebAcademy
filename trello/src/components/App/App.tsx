@@ -16,18 +16,12 @@ import {
   getFromLocalStorage
 } from '../../utils';
 
-import { routes, IAppRoute, URLS } from './Routes';
+import { routes, IAppRoute, URLS } from '../Routes';
 
 import { Header } from './../Header';
 import { OAuth } from './../OAuth';
 import { ProtectedRoute } from '../ProtectedRoutes';
-
-export interface IUserProfile {
-  id: string;
-  fullName: string;
-  email: string;
-  url: string;
-}
+import { IUserProfile } from '../UserProfile';
 
 export interface IBoard {
   id: string;
