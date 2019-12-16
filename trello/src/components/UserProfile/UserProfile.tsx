@@ -36,7 +36,16 @@ function renderItem(item: IUserFields): ReactElement {
   }
 
   if (item.link) {
-    return <a href={item.inputText}>{item.inputText}</a>;
+    return (
+      <a
+        className={style.input}
+        href={item.inputText}
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        {item.inputText}
+      </a>
+    );
   }
 
   return <span className={style.input}>{item.inputText}</span>;
