@@ -3,17 +3,12 @@ import { Redirect, RouteChildrenProps } from 'react-router-dom';
 
 import { Login } from '../Login';
 import { DashBoard } from '../DashBoard';
-import { UserProfile, IUserProfile } from '../UserProfile';
+import { UserProfile } from '../UserProfile';
 import { NotFound } from '../NotFound';
-// import { OAuth } from "../OAuth";
 
-import { IBoard } from '../App/App';
+import { IAppState } from './../App';
 
-export interface IRouteChildrenProps extends RouteChildrenProps {
-  token?: string | null;
-  profile?: IUserProfile | null;
-  boards?: Array<IBoard> | null;
-}
+export interface IRouteChildrenProps extends IAppState, RouteChildrenProps {}
 
 export interface IAppRoute {
   path: URLS;
@@ -53,7 +48,7 @@ export const routes: Array<IAppRoute> = [
   },
   {
     path: URLS.NOT_FOUND,
-    render: (props: IRouteChildrenProps) => <NotFound {...props} />,
+    render: props => <NotFound {...props} />,
     isHidden: true
   },
   {

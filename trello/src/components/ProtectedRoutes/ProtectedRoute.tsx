@@ -6,33 +6,25 @@ import {
   RouteComponentProps
 } from 'react-router-dom';
 
-import { IBoard } from './../App/App';
-
 import { URLS } from '../Routes';
-import { IUserProfile } from '../UserProfile';
 
 interface IProtectedRouteProps extends RouteProps {
   isAuthenticated: boolean;
-  profile?: IUserProfile | null;
-  boards?: Array<IBoard> | null;
 }
 
 export const ProtectedRoute: FunctionComponent<IProtectedRouteProps> = ({
   render,
-  isAuthenticated,
-  ...rest
+  isAuthenticated
 }: IProtectedRouteProps) => {
   return (
     <Route
-      {...rest}
-      render={(routeComponentProps: RouteComponentProps) =>
+      render={(props: RouteComponentProps) =>
         isAuthenticated ? (
-          render!({ ...routeComponentProps, ...rest })
+          render!({ ...props })
         ) : (
           <Redirect
             to={{
               pathname: URLS.LOGIN
-              // state: { routeComponentProps: location }
             }}
           />
         )

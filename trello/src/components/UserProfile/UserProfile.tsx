@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import { FunctionComponent } from 'react';
+
 import { IRouteChildrenProps } from '../Routes';
 
 import style from './UserProfile.module.scss';
@@ -51,14 +52,16 @@ function renderItem(item: IUserFields): ReactElement {
   return <span className={style.input}>{item.inputText}</span>;
 }
 
-export const UserProfile: FunctionComponent<IRouteChildrenProps> = props => {
-  let { profile } = props;
+export const UserProfile: FunctionComponent<IRouteChildrenProps> = ({
+  userProfile
+}) => {
+  console.info(userProfile);
 
-  if (!profile) {
+  if (!userProfile) {
     return <p>Nothing to render</p>;
   }
 
-  let { id, fullName, email, url } = profile;
+  let { id, fullName, email, url } = userProfile;
 
   let fields: Array<IUserFields> = [
     {

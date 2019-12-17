@@ -5,7 +5,7 @@ import style from './Header.module.scss';
 
 import { ReactComponent as Logo } from './../../svg/my-trello-logo.svg';
 
-import { routes, IAppRoute } from '../Routes/Routes';
+import { routes, IAppRoute, URLS } from '../Routes';
 
 interface ISignOutProps {
   (): void;
@@ -34,25 +34,28 @@ export class Header extends Component<IHeaderProps> {
     return (
       <header className={style.header}>
         <nav className={style.nav}>
-          <Link to='/' className={style.home} />
+          <Link to={URLS.HOME} className={style.home} />
         </nav>
-        <Link to='/' className={style.link}>
+        <Link to={URLS.HOME} className={style.link}>
           <Logo className={style.logo} />
         </Link>
         <menu className={style.menu}>
-          {routes.map(
-            (route: IAppRoute, index: number): ReactElement | null => {
-              let { path, title, isHidden } = route;
+          {routes.map(function(
+            route: IAppRoute,
+            index: number
+          ): ReactElement | false {
+            let { path, title, isHidden } = route;
 
-              return isHidden ? null : (
-                <li key={index} className={style.item}>
-                  <Link to={path} className={style.link}>
-                    {title}
-                  </Link>
-                </li>
-              );
-            }
-          )}
+            return isHidden ? (
+              false
+            ) : (
+              <li key={index} className={style.item}>
+                <Link to={path} className={style.link}>
+                  {title}
+                </Link>
+              </li>
+            );
+          })}
           {isLoggedIn && this.renderSignOut(logout)}
         </menu>
       </header>
