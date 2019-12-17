@@ -16,10 +16,10 @@
 }
 
 .home {
-  background: transparent url('/images/theme/icons_24x24.svg') 0 0 no-repeat;
+  background: transparent url('/images/theme/icons_32x32.svg') 0 0 no-repeat;
   display: block;
-  height: 24px;
-  width: 24px;
+  height: 32px;
+  width: 32px;
 }
 
 .logo {
@@ -29,6 +29,7 @@
 }
 
 .menu {
+  align-items: center;
   display: flex;
   justify-content: flex-end;
   list-style: none;
@@ -58,9 +59,9 @@
 }
 
 .ui-button {
-  background: transparent url('/images/theme/icons_24x24.svg') -72px 0 no-repeat;
+  background: transparent url('/images/theme/icons_32x32.svg') -96px 0 no-repeat;
   border: none;
-  height: 24px;
+  height: 32px;
   vertical-align: middle;
-  width: 24px;
+  width: 32px;
 }
