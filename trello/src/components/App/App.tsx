@@ -27,7 +27,7 @@ import { IBoard } from '../DashBoard';
 interface IAppProps extends RouteComponentProps {}
 
 export interface IAppState {
-  token: string;
+  token?: string;
   boards?: Array<IBoard>;
   userProfile?: IUserProfile;
 }
@@ -71,7 +71,13 @@ class App extends Component<IAppProps, IAppState> {
       return this.navigateTo(URLS.DASH_BOARD);
     }
 
-    return this.navigateTo(URLS.LOGIN);
+    try {
+      throw new ReferenceError('Token expired');
+    } catch (error) {
+      console.info(error);
+    }
+
+    this.navigateTo(URLS.LOGIN);
   }
 
   private get isLoggedIn(): boolean {
@@ -105,19 +111,7 @@ class App extends Component<IAppProps, IAppState> {
           render={(props: RouteChildrenProps): ReactElement => {
             return render({
               ...props,
-              token: this.state.token,
-              boards: [
-                {
-                  id: '1',
-                  name: 'name1',
-                  pinned: true
-                },
-                {
-                  id: '2',
-                  name: 'name2',
-                  pinned: false
-                }
-              ],
+              boards: this.state.boards,
               userProfile: this.state.userProfile
             });
           }}

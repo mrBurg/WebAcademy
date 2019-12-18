@@ -55,7 +55,7 @@ function renderItem(item: IUserFields): ReactElement {
 export const UserProfile: FunctionComponent<IRouteChildrenProps> = ({
   userProfile
 }) => {
-  console.info(userProfile);
+  // console.info(userProfile);
 
   if (!userProfile) {
     return <p>Nothing to render</p>;

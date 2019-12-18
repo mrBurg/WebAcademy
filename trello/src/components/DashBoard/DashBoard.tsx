@@ -30,7 +30,7 @@ export class DashBoard extends Component<IRouteChildrenProps> {
   render(): ReactElement {
     let { boards } = this.props;
 
-    console.info(boards);
+    // console.info(boards);
 
     if (!boards) {
       return <p onClick={this.goBack}>Nothing to render</p>;
