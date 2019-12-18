@@ -1,6 +1,6 @@
 import React, { ReactElement, Component } from 'react';
 
-// import style from './DashBoard.module.scss';
+import style from './DashBoard.module.scss';
 
 import { IRouteChildrenProps } from '../Routes';
 import { connect } from 'react-redux';
@@ -32,7 +32,7 @@ class DashBoard extends Component<IDashBoardProps> {
     this.props.onDecrease!();
   };
 
-  /* private showBoards(board: IBoard, index: number): ReactElement {
+  private showBoards(board: IBoard, index: number): ReactElement {
     let { id, name, pinned } = board;
 
     return (
@@ -42,7 +42,7 @@ class DashBoard extends Component<IDashBoardProps> {
         <td>{pinned ? 'pinned' : 'nopinned'}</td>
       </tr>
     );
-  } */
+  }
 
   render(): ReactElement {
     // let { boards } = this.props;
@@ -54,19 +54,23 @@ class DashBoard extends Component<IDashBoardProps> {
     } */
 
     return (
-      <div>
-        <h2 onClick={this.goBack}>Hello</h2>
-        <div>{this.props.count}</div>
-        <button onClick={this.increase}>+</button>
-        <button onClick={this.decrease}>-</button>
-      </div>
+      <table cellPadding='0' cellSpacing='0' className={style.table}>
+        <tbody>
+          <tr>
+            <td>
+              <button onClick={this.decrease}>-</button>
+            </td>
+            <td>{this.props.count}</td>
+            <td>
+              <button onClick={this.increase}>+</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     );
   }
 }
 
-/*<table cellPadding='0' cellSpacing='0' className={style.table}>
-        <tbody>{boards.map(this.showBoards)}</tbody>
-      </table>*/
 const mapStateToProps = (state: IAppReducerState) => {
   return {
     count: state.count
@@ -75,8 +79,8 @@ const mapStateToProps = (state: IAppReducerState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onIncrease: () => dispatch(increaseCount),
-    onDecrease: () => dispatch(decreaseCount)
+    onIncrease: () => dispatch(increaseCount()),
+    onDecrease: () => dispatch(decreaseCount())
   };
 };
 

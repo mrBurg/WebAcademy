@@ -110,9 +110,9 @@ class App extends Component<IAppProps, IAppState> {
           path={path}
           render={(props: RouteChildrenProps): ReactElement => {
             return render({
-              ...props,
-              boards: this.state.boards,
-              userProfile: this.state.userProfile
+              ...props
+              // boards: this.state.boards,
+              // userProfile: this.state.userProfile
             });
           }}
           isAuthenticated={this.isLoggedIn}
