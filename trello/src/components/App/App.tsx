@@ -10,12 +10,6 @@ import {
 
 import style from './App.module.scss';
 
-import {
-  setToLocalStorage,
-  removeItemFromLocalStorage,
-  getFromLocalStorage
-} from '../../utils';
-
 import { routes, IAppRoute, URLS } from '../Routes';
 
 import { Header } from './../Header';
@@ -32,8 +26,8 @@ export interface IAppState {
   userProfile?: IUserProfile;
 }
 
-const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
-const { REACT_APP_KEY } = process.env;
+// const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
+// const { REACT_APP_KEY } = process.env;
 
 const INITIAL_STATE: IAppState = {
   token: ''
@@ -42,13 +36,7 @@ const INITIAL_STATE: IAppState = {
 class App extends Component<IAppProps, IAppState> {
   public state = INITIAL_STATE;
 
-  private setToken = (token: string): void => {
-    this.setState({ token });
-
-    setToLocalStorage(TOKEN_STORAGE_KEY, token);
-  };
-
-  private async getToken() {
+  /* private async getToken() {
     if (this.state.token) return;
 
     const token = getFromLocalStorage(TOKEN_STORAGE_KEY);
@@ -56,8 +44,8 @@ class App extends Component<IAppProps, IAppState> {
     if (!token) return this.navigateTo(URLS.LOGIN);
 
     const url = `https://api.trello.com/1/members/me
-      ?key=${REACT_APP_KEY}
-      &token=${token}`.replace(/[\s\n]/g, '');
+			?key=${REACT_APP_KEY}
+			&token=${token}`.replace(/[\s\n]/g, '');
 
     const response = await fetch(url);
 
@@ -78,25 +66,25 @@ class App extends Component<IAppProps, IAppState> {
     }
 
     this.navigateTo(URLS.LOGIN);
-  }
+  } */
 
   private get isLoggedIn(): boolean {
     return !!this.state.token;
   }
 
-  private logout = (): void => {
-    removeItemFromLocalStorage(TOKEN_STORAGE_KEY);
+  /* private logout = (): void => {
+		removeItemFromLocalStorage(TOKEN_STORAGE_KEY);
 
-    this.setState(INITIAL_STATE);
-    this.navigateTo(URLS.LOGIN);
-  };
+		this.setState(INITIAL_STATE);
+		this.navigateTo(URLS.LOGIN);
+	}; */
 
   private navigateTo(url: URLS) {
     this.props.history.push(url);
   }
 
   public componentDidMount(): void {
-    this.getToken();
+    // this.getToken();
   }
 
   private renderRoute = (route: IAppRoute, index: number): ReactElement => {
@@ -135,16 +123,19 @@ class App extends Component<IAppProps, IAppState> {
   public render(): ReactElement {
     return (
       <>
-        <Header isLoggedIn={this.isLoggedIn} logout={this.logout} />
+        <Header
+          isLoggedIn={this.isLoggedIn}
+          logout={() => {
+            //this.logout
+          }}
+        />
         <main className={style.main}>
           <Switch>
             {routes.map(this.renderRoute)}
 
             <Route
               path={URLS.OAUTH}
-              render={(props: RouteChildrenProps) => (
-                <OAuth {...props} onSetToken={this.setToken} />
-              )}
+              render={(props: RouteChildrenProps) => <OAuth {...props} />}
             />
             <Redirect to={URLS.NOT_FOUND} />
           </Switch>

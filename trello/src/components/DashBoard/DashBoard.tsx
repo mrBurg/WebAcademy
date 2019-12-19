@@ -4,7 +4,7 @@ import style from './DashBoard.module.scss';
 
 import { IRouteChildrenProps } from '../Routes';
 import { connect } from 'react-redux';
-import { IAppReducerState, increaseCount, decreaseCount } from '../../store';
+import { IAppState, increaseCount, decreaseCount, getCount } from '../../store';
 
 export interface IBoard {
   id: string;
@@ -71,9 +71,9 @@ class DashBoard extends Component<IDashBoardProps> {
   }
 }
 
-const mapStateToProps = (state: IAppReducerState) => {
+const mapStateToProps = (state: IAppState) => {
   return {
-    count: state.count
+    count: getCount(state)
   };
 };
 

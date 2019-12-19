@@ -1,0 +1,3 @@
+export enum ACTION_TYPES {
+  SET_TOKEN = '@@OAUTH/SET_TOKEN'
+}

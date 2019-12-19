@@ -1,9 +1,11 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 
-import counterReducer, { IAppReducerState } from './counter';
+import counter, { ICountState, loggerMiddleware } from './counter';
+import oauth, { IOauthState, middlewares } from './oauth';
 
 export interface IAppState {
-  counter: IAppReducerState;
+  counter: ICountState;
+  oauth: IOauthState;
 }
 
 const composeEnhancers =
@@ -14,12 +16,15 @@ const composeEnhancers =
 export default function configureStore() {
   // history: History,
   // initialState: IAppState
-  const rootReducer = combineReducers<IAppReducerState>(counterReducer);
+  const rootReducer = combineReducers<IAppState>({
+    counter,
+    oauth
+  });
 
   return createStore(
     rootReducer,
     undefined,
-    composeEnhancers(applyMiddleware())
+    composeEnhancers(applyMiddleware(loggerMiddleware, ...middlewares))
   );
 }
 

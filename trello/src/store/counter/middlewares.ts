@@ -7,7 +7,7 @@ const asyncTimeout = async (fn: any, ms: number = 1000): Promise<void> => {
   }, ms);
 };
 
-export const logger: Middleware = (middlewareAPI: MiddlewareAPI) => (
+export const loggerMiddleware: Middleware = (middlewareAPI: MiddlewareAPI) => (
   next: any
 ) => {
   // const { dispatch, getState } = middlewareAPI;
