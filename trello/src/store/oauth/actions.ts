@@ -8,3 +8,8 @@ export const setToken = (token: string) => ({
 export const removeToken = () => ({
   type: ACTION_TYPES.REMOVE_TOKEN
 });
+
+export const readToken = (token: string) => ({
+  type: ACTION_TYPES.READ_TOKEN,
+  payload: token
+});
