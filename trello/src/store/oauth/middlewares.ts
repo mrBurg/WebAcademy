@@ -2,4 +2,4 @@ const oauthMiddleware = () => (next: any) => (action: any) => {
   next(action);
 };
 
-export const middlewares = [oauthMiddleware];
+export const oauthMiddlewares = [oauthMiddleware];

@@ -12,11 +12,11 @@ import style from './App.module.scss';
 
 import { routes, IAppRoute, URLS } from '../Routes';
 
+import { ProtectedRoute } from '../ProtectedRoutes';
 import { Header } from './../Header';
 import { OAuth } from './../OAuth';
-import { ProtectedRoute } from '../ProtectedRoutes';
-import { IUserProfile } from '../UserProfile';
 import { IBoard } from '../DashBoard';
+import { IUserProfile } from '../UserProfile';
 
 interface IAppProps extends RouteComponentProps {}
 
@@ -68,9 +68,9 @@ class App extends Component<IAppProps, IAppState> {
     this.navigateTo(URLS.LOGIN);
   } */
 
-  private get isLoggedIn(): boolean {
+  /* private get isLoggedIn(): boolean {
     return !!this.state.token;
-  }
+  } */
 
   /* private logout = (): void => {
 		removeItemFromLocalStorage(TOKEN_STORAGE_KEY);
@@ -79,9 +79,9 @@ class App extends Component<IAppProps, IAppState> {
 		this.navigateTo(URLS.LOGIN);
 	}; */
 
-  private navigateTo(url: URLS) {
+  /* private navigateTo(url: URLS) {
     this.props.history.push(url);
-  }
+  } */
 
   public componentDidMount(): void {
     // this.getToken();
@@ -92,19 +92,7 @@ class App extends Component<IAppProps, IAppState> {
 
     if (route.isProtected) {
       return (
-        <ProtectedRoute
-          key={index}
-          exact={exact}
-          path={path}
-          render={(props: RouteChildrenProps): ReactElement => {
-            return render({
-              ...props
-              // boards: this.state.boards,
-              // userProfile: this.state.userProfile
-            });
-          }}
-          isAuthenticated={this.isLoggedIn}
-        />
+        <ProtectedRoute key={index} exact={exact} path={path} render={render} />
       );
     } else {
       return (
@@ -123,12 +111,7 @@ class App extends Component<IAppProps, IAppState> {
   public render(): ReactElement {
     return (
       <>
-        <Header
-          isLoggedIn={this.isLoggedIn}
-          logout={() => {
-            //this.logout
-          }}
-        />
+        <Header />
         <main className={style.main}>
           <Switch>
             {routes.map(this.renderRoute)}

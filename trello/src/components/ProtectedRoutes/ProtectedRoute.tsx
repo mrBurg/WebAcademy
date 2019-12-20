@@ -5,14 +5,16 @@ import {
   RouteProps,
   RouteComponentProps
 } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { URLS } from '../Routes';
+import { IAppState, isAuthenticated } from '../../store';
 
 interface IProtectedRouteProps extends RouteProps {
-  isAuthenticated: boolean;
+  isAuthenticated?: boolean;
 }
 
-export const ProtectedRoute: FunctionComponent<IProtectedRouteProps> = ({
+const ProtectedRoute: FunctionComponent<IProtectedRouteProps> = ({
   render,
   isAuthenticated
 }: IProtectedRouteProps) => {
@@ -32,3 +34,20 @@ export const ProtectedRoute: FunctionComponent<IProtectedRouteProps> = ({
     />
   );
 };
+
+const mapStateToProps = (state: IAppState) => {
+  return {
+    isAuthenticated: isAuthenticated(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {};
+};
+
+const ConnectedProtectedRoute = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProtectedRoute);
+
+export { ConnectedProtectedRoute as ProtectedRoute };

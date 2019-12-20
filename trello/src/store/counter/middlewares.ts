@@ -7,15 +7,15 @@ const asyncTimeout = async (fn: any, ms: number = 1000): Promise<void> => {
   }, ms);
 };
 
-export const loggerMiddleware: Middleware = (middlewareAPI: MiddlewareAPI) => (
+export const counterMiddleware: Middleware = (middlewareAPI: MiddlewareAPI) => (
   next: any
 ) => {
   // const { dispatch, getState } = middlewareAPI;
+
   return async (action: any) => {
     switch (action.type) {
-      case ACTION_TYPES.INCREASE_COUNT:
+      case ACTION_TYPES.DECREASE_COUNT:
         await asyncTimeout(() => {
-          console.info(action.type);
           next(action);
         }, 2000);
         break;

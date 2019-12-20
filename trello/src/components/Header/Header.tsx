@@ -6,30 +6,30 @@ import style from './Header.module.scss';
 import { ReactComponent as Logo } from './../../svg/my-trello-logo.svg';
 
 import { routes, IAppRoute, URLS } from '../Routes';
-
-interface ISignOutProps {
-  (): void;
-}
+import { IAppState, logout, isAuthenticated } from '../../store';
+import { connect } from 'react-redux';
 
 interface IHeaderProps {
   isLoggedIn: boolean;
-  logout(): void;
+  onLogout(): void;
 }
 
-export class Header extends Component<IHeaderProps> {
-  private renderSignOut = (logout: ISignOutProps): ReactElement => {
+class Header extends Component<IHeaderProps> {
+  private renderSignOut = (): ReactElement => {
+    let { onLogout } = this.props;
+
     return (
       <li className={style.item}>
         <button
           className={`ui-button ${style['ui-button']}`}
-          onClick={logout}
+          onClick={onLogout}
         />
       </li>
     );
   };
 
   public render(): ReactElement {
-    let { isLoggedIn, logout } = this.props;
+    let { isLoggedIn } = this.props;
 
     return (
       <header className={style.header}>
@@ -56,9 +56,25 @@ export class Header extends Component<IHeaderProps> {
               </li>
             );
           })}
-          {isLoggedIn && this.renderSignOut(logout)}
+          {isLoggedIn && this.renderSignOut()}
         </menu>
       </header>
     );
   }
 }
+
+const mapStateToProps = (state: IAppState) => {
+  return {
+    isLoggedIn: isAuthenticated(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onLogout: (): void => dispatch(logout())
+  };
+};
+
+const connectedHeader = connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export { connectedHeader as Header };
