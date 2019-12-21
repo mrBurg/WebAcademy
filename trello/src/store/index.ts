@@ -1,9 +1,10 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 
-import counter, { ICountState, counterMiddleware } from './counter';
+import { initMiddlewares } from './initialization';
 import oauth, { IOauthState, oauthMiddlewares } from './oauth';
-import { logoutMiddleware } from './logout';
+import counter, { ICountState, counterMiddleware } from './counter';
 import http, { IHTTPState, httpMiddlewares } from './http';
+import { logoutMiddleware } from './logout';
 
 export interface IAppState {
   counter: ICountState;
@@ -31,9 +32,10 @@ export default function configureStore() {
     composeEnhancers(
       applyMiddleware(
         counterMiddleware,
-        logoutMiddleware,
+        ...initMiddlewares,
         ...oauthMiddlewares,
-        ...httpMiddlewares
+        ...httpMiddlewares,
+        logoutMiddleware
       )
     )
   );

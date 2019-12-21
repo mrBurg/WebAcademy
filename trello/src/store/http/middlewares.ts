@@ -1,9 +1,10 @@
 import uuid from 'uuid/v4';
 
-import { IActionHTTP, ACTION_TYPES } from './actionTypes';
-import { Worker, subscribe } from './../../utils';
+import { IActionHTTP /* ACTION_TYPES */ } from './actionTypes';
+import { TWorker /* , subscribe */ } from './../../utils';
+import { MiddlewareAPI } from 'redux';
 
-export const requestWorker: Worker<IActionHTTP> = async (
+export const requestWorker: TWorker<IActionHTTP> = async (
   action: IActionHTTP
 ) => {
   const requestId = uuid();
@@ -26,7 +27,13 @@ export const requestWorker: Worker<IActionHTTP> = async (
   onSuccess!({ data, requestId, method });
 };
 
-const requestMiddleware = ({ dispatch, getState }: any) => (next: any) =>
-  subscribe(ACTION_TYPES.REQUEST, requestWorker)(next, dispatch, getState);
+// const requestMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
+// subscribe(ACTION_TYPES.REQUEST, requestWorker)(next, middlewareAPI);
+
+const requestMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) => (
+  action: any
+) => {
+  next(action);
+};
 
 export const httpMiddlewares = [requestMiddleware];

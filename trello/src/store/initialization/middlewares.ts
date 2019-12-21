@@ -1,16 +1,36 @@
+import { MiddlewareAPI } from 'redux';
 import { ACTION_TYPES } from './actionTypes';
 import { initEnd, initStart } from './actions';
 import { subscribe } from '../../utils';
-// import { subscribe } from '../../utils/redux';
-// import { readToken } from '../auth';
+import { IAction } from '../storeTypes';
+import { readToken } from './../oauth';
 
-const initWorker = ({ action, dispatch, next }: any) => {
-  dispatch(initStart());
+const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
+
+/* const initMiddlewareWorker = ({ action, dispatch, next }: any) => {
+  // dispatch(initStart());
   // dispatch(readToken());
+  // dispatch(initEnd());
+  // next(action);
+}; */
+
+const initMiddlewareWorker = ({ dispatch }: any) => (next: any) => (
+  action: IAction<ACTION_TYPES>
+) => {
+  console.info(action.type);
+  dispatch(initStart());
+  dispatch(readToken());
   dispatch(initEnd());
+
   next(action);
 };
 
-const init = ({ dispatch }: any) => (next: any) =>
-  subscribe(ACTION_TYPES.INIT, initWorker)(next, dispatch);
-export const initMiddleware = [init];
+/* const initMiddleware = ({ dispatch }: any) => (next: any) =>
+  subscribe(ACTION_TYPES.INIT, initMiddlewareWorker)(next, dispatch); */
+const initMiddleware = ({ dispatch }: any) => (next: any) =>
+  subscribe(ACTION_TYPES.INIT, initMiddlewareWorker)(next, dispatch);
+
+/* const initMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
+  subscribe(ACTION_TYPES.INIT, initMiddlewareWorker)(next, middlewareAPI);*/
+
+export const initMiddlewares = [initMiddleware];

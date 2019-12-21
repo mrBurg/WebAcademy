@@ -7,6 +7,7 @@ import {
   withRouter,
   RouteComponentProps
 } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import style from './App.module.scss';
 
@@ -17,8 +18,11 @@ import { Header } from './../Header';
 import { OAuth } from './../OAuth';
 import { IBoard } from '../DashBoard';
 import { IUserProfile } from '../UserProfile';
+import { init } from '../../store/initialization';
 
-interface IAppProps extends RouteComponentProps {}
+interface IAppProps extends RouteComponentProps {
+  onInit: () => void;
+}
 
 export interface IAppState {
   token?: string;
@@ -33,7 +37,11 @@ const INITIAL_STATE: IAppState = {
 class App extends Component<IAppProps, IAppState> {
   public state = INITIAL_STATE;
 
-  public componentDidMount(): void {}
+  public UNSAFE_componentWillMount(): void {
+    let { onInit } = this.props;
+
+    onInit();
+  }
 
   private renderRoute = (route: IAppRoute, index: number): ReactElement => {
     let { path, exact, render } = route;
@@ -76,6 +84,20 @@ class App extends Component<IAppProps, IAppState> {
   }
 }
 
-const AppWithRouter: ComponentClass = withRouter(App);
+const mapStateToProps = (state: IAppState) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    onInit: () => {
+      dispatch(init());
+    }
+  };
+};
+
+const AppWithRouter: ComponentClass = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(App)
+);
 
 export { AppWithRouter as App };

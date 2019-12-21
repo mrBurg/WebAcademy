@@ -1,7 +1,8 @@
 import { IAction } from './../storeTypes';
 import { ACTION_TYPES } from './actionTypes';
-import { request } from '../http';
-import { setToLocalStorage } from '../../utils';
+// import { request } from '../http';
+import { setToLocalStorage, subscribe } from '../../utils';
+import { MiddlewareAPI } from 'redux';
 
 const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
 
@@ -10,7 +11,6 @@ const oauthMiddleware = ({ dispatch }: any) => (next: any) => (
 ) => {
   if (action.type === ACTION_TYPES.SET_TOKEN) {
     setToLocalStorage(TOKEN_STORAGE_KEY, action.payload);
-    console.info(request, dispatch);
     /* setTimeout(() => {
       dispatch(
         request({
@@ -26,7 +26,12 @@ const oauthMiddleware = ({ dispatch }: any) => (next: any) => (
   next(action);
 };
 
-export const oauthMiddlewares = [oauthMiddleware];
+const readTokenWorker = ({ action }: any) => {};
+
+const readTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
+  subscribe(ACTION_TYPES.READ_TOKEN, readTokenWorker)(next, middlewareAPI);
+
+export const oauthMiddlewares = [oauthMiddleware, readTokenMiddleware];
 
 // const { REACT_APP_KEY } = process.env;
 
