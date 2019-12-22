@@ -4,9 +4,7 @@ import { IActionHTTP /* ACTION_TYPES */ } from './actionTypes';
 import { TWorker /* , subscribe */ } from './../../utils';
 import { MiddlewareAPI } from 'redux';
 
-export const requestWorker: TWorker<IActionHTTP> = async (
-  action: IActionHTTP
-) => {
+export const requestWorker: TWorker<IActionHTTP> = async ({ action }: any) => {
   const requestId = uuid();
   const { path, onSuccess, method = 'GET' } = action;
 

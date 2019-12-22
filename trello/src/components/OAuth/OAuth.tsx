@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { RouteChildrenProps, Redirect } from 'react-router-dom';
 import { URLS } from '../Routes';
 import { connect } from 'react-redux';
-// import { IAppState } from '../../store';
 import { setToken } from '../../store/oauth';
+// import { IAppState } from '../../store';
 
 interface IOAuthProps extends RouteChildrenProps {
   onSetToken?: (token: string) => void;
@@ -23,9 +23,9 @@ const OAuth: FunctionComponent<IOAuthProps> = ({
   return <Redirect to={URLS.LOGIN} />;
 };
 
-/* const mapStateToProps = (state: IAppState) => {
-  return undefined;
-}; */
+const mapStateToProps = (/* state: IAppState */) => {
+  return {};
+};
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
@@ -33,6 +33,6 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-const connectedOAuth = connect(null, mapDispatchToProps)(OAuth);
+const connectedOAuth = connect(mapStateToProps, mapDispatchToProps)(OAuth);
 
 export { connectedOAuth as OAuth };
