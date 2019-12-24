@@ -18,10 +18,11 @@ import { Header } from './../Header';
 import { OAuth } from './../OAuth';
 import { IBoard } from '../DashBoard';
 import { IUserProfile } from '../UserProfile';
-import { init } from '../../store/initialization';
+import { initApp } from '../../store/initialization';
+import { readToken } from '../../store';
 
 interface IAppProps extends RouteComponentProps {
-  onInit: () => void;
+  onInitApp: () => void;
 }
 
 export interface IAppState {
@@ -37,10 +38,14 @@ const INITIAL_STATE: IAppState = {
 class App extends Component<IAppProps, IAppState> {
   public state = INITIAL_STATE;
 
-  public UNSAFE_componentWillMount(): void {
-    let { onInit } = this.props;
+  static getDerivedStateFromProps(
+    props: IAppProps,
+    state: IAppState
+  ): Partial<any> | null {
+    let { onInitApp } = props;
 
-    onInit();
+    onInitApp();
+    return null;
   }
 
   private renderRoute = (route: IAppRoute, index: number): ReactElement => {
@@ -90,8 +95,8 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onInit: () => {
-      dispatch(init());
+    onInitApp: () => {
+      dispatch(readToken());
     }
   };
 };

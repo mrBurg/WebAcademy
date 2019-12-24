@@ -4,7 +4,7 @@ import style from './DashBoard.module.scss';
 
 import { IRouteChildrenProps } from '../Routes';
 import { connect } from 'react-redux';
-import { IAppState, increaseCount, decreaseCount, getCount } from '../../store';
+import { IAppState } from '../../store';
 
 export interface IBoard {
   id: string;
@@ -13,23 +13,11 @@ export interface IBoard {
   desc?: string;
 }
 
-interface IDashBoardProps extends IRouteChildrenProps {
-  count?: any;
-  onIncrease?(): void;
-  onDecrease?(): void;
-}
+interface IDashBoardProps extends IRouteChildrenProps {}
 
 class DashBoard extends Component<IDashBoardProps> {
   private goBack = (): void => {
     this.props.history.goBack();
-  };
-
-  private increase = (): void => {
-    this.props.onIncrease!();
-  };
-
-  private decrease = (): void => {
-    this.props.onDecrease!();
   };
 
   private showBoards(board: IBoard, index: number): ReactElement {
@@ -57,13 +45,8 @@ class DashBoard extends Component<IDashBoardProps> {
       <table cellPadding='0' cellSpacing='0' className={style.table}>
         <tbody>
           <tr>
-            <td>
-              <button onClick={this.decrease}>-</button>
-            </td>
-            <td>{this.props.count}</td>
-            <td>
-              <button onClick={this.increase}>+</button>
-            </td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
@@ -72,16 +55,11 @@ class DashBoard extends Component<IDashBoardProps> {
 }
 
 const mapStateToProps = (state: IAppState) => {
-  return {
-    count: getCount(state)
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {
-    onIncrease: () => dispatch(increaseCount()),
-    onDecrease: () => dispatch(decreaseCount())
-  };
+  return {};
 };
 
 const connectedDashBoard = connect(

@@ -1,5 +1,9 @@
 import { ACTION_TYPES } from './actionTypes';
 
+export const getToken = () => ({
+  type: ACTION_TYPES.GET_TOKEN
+});
+
 export const setToken = (token: string) => ({
   type: ACTION_TYPES.SET_TOKEN,
   payload: token

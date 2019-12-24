@@ -1,38 +1,30 @@
-import React, { FunctionComponent } from 'react';
-import { RouteChildrenProps, Redirect } from 'react-router-dom';
-import { URLS } from '../Routes';
+import { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
-// import { IAppState } from '../../store';
-import { setToken } from '../../store/oauth';
+import { RouteChildrenProps } from 'react-router-dom';
+
+import { IAppState, getToken } from '../../store';
 
 interface IOAuthProps extends RouteChildrenProps {
-  onSetToken?: (token: string) => void;
+  onGetToken: () => void;
 }
 
-const OAuth: FunctionComponent<IOAuthProps> = ({
-  location: { hash },
-  onSetToken
-}: IOAuthProps) => {
-  const token = hash.split('=')[1];
-
-  if (token) {
-    onSetToken && onSetToken(token);
-    return <Redirect to={URLS.DASH_BOARD} />;
-  }
-
-  return <Redirect to={URLS.LOGIN} />;
+const OAuth: FunctionComponent<IOAuthProps> = ({ onGetToken }: IOAuthProps) => {
+  onGetToken();
+  return null;
 };
 
-/* const mapStateToProps = (state: IAppState) => {
-  return undefined;
-}; */
+const mapStateToProps = (state: IAppState) => {
+  return {};
+};
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onSetToken: (token: string) => dispatch(setToken(token))
+    onGetToken: () => {
+      dispatch(getToken());
+    }
   };
 };
 
-const connectedOAuth = connect(null, mapDispatchToProps)(OAuth);
+const connectedOAuth = connect(mapStateToProps, mapDispatchToProps)(OAuth);
 
 export { connectedOAuth as OAuth };

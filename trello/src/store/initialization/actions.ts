@@ -1,6 +1,6 @@
 import { ACTION_TYPES } from './actionTypes';
 
-export const init = () => ({
+export const initApp = () => ({
   type: ACTION_TYPES.INIT
 });
 
