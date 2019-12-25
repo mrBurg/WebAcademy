@@ -1,6 +1,6 @@
 export enum ACTION_TYPES {
-  INIT = '@@INIT/APP_INIT',
-  START = '@@INIT/INIT_START',
-  END = '@@INIT/INIT_END',
-  RESET = '@@INIT/RESET'
+  INIT = '@@Init/INIT',
+  START = '@@Init/START',
+  END = '@@Init/END',
+  RESET = '@@Init/RESET'
 }

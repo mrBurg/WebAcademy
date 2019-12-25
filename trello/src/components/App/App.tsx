@@ -19,7 +19,6 @@ import { OAuth } from './../OAuth';
 import { IBoard } from '../DashBoard';
 import { IUserProfile } from '../UserProfile';
 import { initApp } from '../../store/initialization';
-import { readToken } from '../../store';
 
 interface IAppProps extends RouteComponentProps {
   onInitApp: () => void;
@@ -96,7 +95,7 @@ const mapStateToProps = (state: IAppState) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onInitApp: () => {
-      dispatch(readToken());
+      dispatch(initApp());
     }
   };
 };

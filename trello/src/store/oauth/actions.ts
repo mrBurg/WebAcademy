@@ -14,5 +14,6 @@ export const readToken = () => ({
 });
 
 export const removeToken = () => ({
-  type: ACTION_TYPES.REMOVE_TOKEN
+  type: ACTION_TYPES.REMOVE_TOKEN,
+  payload: true
 });

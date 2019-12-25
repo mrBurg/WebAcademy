@@ -8,9 +8,9 @@ export interface IRequestPayload<P = any> {
 }
 
 export enum ACTION_TYPES {
-  REQUEST = '@@HTTP/REQUEST',
-  SUCCESS = '@@HTTP/SUCCESS',
-  ERROR = '@@HTTP/ERROR'
+  REQUEST = '@@http/REQUEST',
+  SUCCESS = '@@http/SUCCESS',
+  ERROR = '@@http/ERROR'
 }
 
 export interface IActionHTTP<P = any>

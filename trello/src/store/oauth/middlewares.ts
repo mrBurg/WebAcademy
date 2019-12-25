@@ -3,7 +3,7 @@ import { push, getHash } from 'connected-react-router';
 
 import { setToLocalStorage, getFromLocalStorage, subscribe } from '../../utils';
 import { ACTION_TYPES } from './actionTypes';
-import { setToken } from './actions';
+import { setToken, removeToken } from './actions';
 import { URLS } from '../../components/Routes';
 
 const { REACT_APP_KEY } = process.env;
@@ -16,7 +16,7 @@ const getTokenMiddlewareWorker = ({
   dispatch,
   getState
 }: any) => {
-  next(action);
+  // next(action);
 
   let state = getState();
   let hashToken = getHash(state).split('=')[1];
@@ -67,39 +67,21 @@ const setTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
     middlewareAPI
   );
 
-const readTokenMiddlewareWorker = async ({ action, next, dispatch }: any) => {
+const readTokenMiddlewareWorker = async ({
+  action,
+  next,
+  dispatch,
+  getState
+}: any) => {
   next(action);
+
+  let { oauth } = getState();
+
+  if (oauth.token) return;
 
   let savedToken = getFromLocalStorage(TOKEN_STORAGE_KEY) || '';
 
-  console.info(savedToken);
-  if (savedToken) return;
-  // dispatch(setToken(savedToken));
-
-  /* let { payload: token } = action;
-
-  const url = `https://api.trello.com/1/tokens/${token}
-    ?token=${token}
-    &key=${REACT_APP_KEY}`.replace(/[\s\n]/g, '');
-
-  const response = await fetch(url);
-
-  let { ok, status } = response;
-
-  if (ok && status === 200) {
-    let data = await response.json();
-
-    setToLocalStorage(TOKEN_STORAGE_KEY, action.payload);
-
-    dispatch(push(URLS.DASH_BOARD));
-  } else {
-    try {
-      throw new ReferenceError('Token expired');
-    } catch (error) {
-      console.info(error);
-      dispatch(push(URLS.LOGIN));
-    }
-  } */
+  if (savedToken) dispatch(setToken(savedToken));
 
   /* const url = `https://api.trello.com/1/members/me
     ?key=${REACT_APP_KEY}
