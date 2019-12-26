@@ -2,7 +2,7 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
-import { initMiddlewares } from './initialization';
+import init, { initMiddlewares } from './initialization';
 import oauth, { IOauthState, oauthMiddlewares } from './oauth';
 import http, { IHTTPState, httpMiddlewares } from './http';
 import { logoutMiddleware } from './logout';
@@ -11,6 +11,7 @@ export interface IAppState {
   oauth: IOauthState;
   http: IHTTPState;
   router: any;
+  init: any;
 }
 
 const composeEnhancers =
@@ -24,6 +25,7 @@ export default function configureStore() {
   // history: History,
   // initialState: IAppState
   const rootReducer = combineReducers<IAppState>({
+    init,
     oauth,
     http,
     router: connectRouter(history)

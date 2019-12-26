@@ -3,7 +3,7 @@ import { push, getHash } from 'connected-react-router';
 
 import { setToLocalStorage, getFromLocalStorage, subscribe } from '../../utils';
 import { ACTION_TYPES } from './actionTypes';
-import { setToken, removeToken } from './actions';
+import { setToken } from './actions';
 import { URLS } from '../../components/Routes';
 
 const { REACT_APP_KEY } = process.env;
@@ -16,7 +16,7 @@ const getTokenMiddlewareWorker = ({
   dispatch,
   getState
 }: any) => {
-  // next(action);
+  next(action);
 
   let state = getState();
   let hashToken = getHash(state).split('=')[1];

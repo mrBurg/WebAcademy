@@ -4,7 +4,9 @@ import { initEnd, initStart } from './actions';
 import { subscribe } from '../../utils';
 import { readToken } from './../oauth';
 
-const initMiddlewareWorker = ({ dispatch }: any) => {
+const initMiddlewareWorker = ({ dispatch, next, action }: any) => {
+  next(action);
+
   dispatch(initStart());
   dispatch(readToken());
   dispatch(initEnd());
