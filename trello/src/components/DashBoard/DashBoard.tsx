@@ -1,21 +1,31 @@
 import React, { ReactElement, Component } from 'react';
+import { connect } from 'react-redux';
 
 import style from './DashBoard.module.scss';
 
 import { IRouteChildrenProps } from '../Routes';
-import { connect } from 'react-redux';
-import { IAppState } from '../../store';
+import { getBoard, IAppState } from '../../store';
 
 export interface IBoard {
-  id: string;
-  name: string;
-  pinned: boolean;
+  id?: string;
+  name?: string;
+  pinned?: boolean;
   desc?: string;
 }
 
 interface IDashBoardProps extends IRouteChildrenProps {}
 
+const INITIAL_STATE: IBoard = {};
+
 class DashBoard extends Component<IDashBoardProps> {
+  public state = INITIAL_STATE;
+  static getDerivedStateFromProps(props: any, state: IAppState): Partial<any> {
+    let { onGetBoard } = props;
+
+    onGetBoard();
+    return {};
+  }
+
   private goBack = (): void => {
     this.props.history.goBack();
   };
@@ -59,7 +69,9 @@ const mapStateToProps = (state: IAppState) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {};
+  return {
+    onGetBoard: (): void => dispatch(getBoard())
+  };
 };
 
 const connectedDashBoard = connect(

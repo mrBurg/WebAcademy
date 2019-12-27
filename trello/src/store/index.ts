@@ -6,12 +6,14 @@ import init, { initMiddlewares } from './initialization';
 import oauth, { IOauthState, oauthMiddlewares } from './oauth';
 import http, { IHTTPState, httpMiddlewares } from './http';
 import { logoutMiddleware } from './logout';
+import dashboard, { dashBoardMiddlewares } from './dashboard';
 
 export interface IAppState {
-  oauth: IOauthState;
-  http: IHTTPState;
   router: any;
+  http: IHTTPState;
   init: any;
+  oauth: IOauthState;
+  dashboard: any;
 }
 
 const composeEnhancers =
@@ -25,10 +27,11 @@ export default function configureStore() {
   // history: History,
   // initialState: IAppState
   const rootReducer = combineReducers<IAppState>({
+    router: connectRouter(history),
     init,
     oauth,
     http,
-    router: connectRouter(history)
+    dashboard
   });
 
   return createStore(
@@ -37,10 +40,11 @@ export default function configureStore() {
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history),
+        logoutMiddleware,
         ...initMiddlewares,
         ...oauthMiddlewares,
         ...httpMiddlewares,
-        logoutMiddleware
+        ...dashBoardMiddlewares
       )
     )
   );
@@ -48,3 +52,4 @@ export default function configureStore() {
 
 export * from './oauth';
 export * from './logout';
+export * from './dashboard';

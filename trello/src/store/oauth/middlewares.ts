@@ -5,6 +5,7 @@ import { setToLocalStorage, getFromLocalStorage, subscribe } from '../../utils';
 import { ACTION_TYPES } from './actionTypes';
 import { setToken } from './actions';
 import { URLS } from '../../components/Routes';
+import { request } from '../http';
 
 const { REACT_APP_KEY } = process.env;
 
@@ -41,24 +42,19 @@ const setTokenMiddlewareWorker = async ({ action, next, dispatch }: any) => {
     ?token=${token}
     &key=${REACT_APP_KEY}`.replace(/[\s\n]/g, '');
 
-  const response = await fetch(url);
+  dispatch(
+    request({
+      path: url,
+      onSuccess({ data, requestId, method }) {
+        setToLocalStorage(TOKEN_STORAGE_KEY, action.payload);
 
-  let { ok, status } = response;
-
-  if (ok && status === 200) {
-    let data = await response.json();
-
-    setToLocalStorage(TOKEN_STORAGE_KEY, action.payload);
-
-    dispatch(push(URLS.DASH_BOARD));
-  } else {
-    try {
-      throw new ReferenceError('Token expired');
-    } catch (error) {
-      console.info(error);
-      dispatch(push(URLS.LOGIN));
-    }
-  }
+        dispatch(push(URLS.DASH_BOARD));
+      },
+      onError(error) {
+        dispatch(push(URLS.LOGIN));
+      }
+    })
+  );
 };
 
 const setTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>

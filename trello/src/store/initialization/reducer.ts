@@ -6,7 +6,9 @@ export interface InitState {
   sessionId?: string;
 }
 
-export default (state: InitState = {}, action: any) => {
+const INITIAL_STATE: InitState = {};
+
+export default (state: InitState = INITIAL_STATE, action: any) => {
   switch (action.type) {
     case ACTION_TYPES.START:
       return {};

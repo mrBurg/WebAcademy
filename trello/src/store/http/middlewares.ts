@@ -1,12 +1,16 @@
 import uuid from 'uuid/v4';
 
-import { IActionHTTP /* ACTION_TYPES */ } from './actionTypes';
-import { TWorker /* , subscribe */ } from './../../utils';
+import { IActionHTTP /* ACTION_TYPES */, ACTION_TYPES } from './actionTypes';
+import { TWorker, subscribe } from './../../utils';
 import { MiddlewareAPI } from 'redux';
 
-export const requestWorker: TWorker<IActionHTTP> = async ({ action }: any) => {
+export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
+  action,
+  next
+}: any) => {
+  next(action);
   const requestId = uuid();
-  const { path, onSuccess, method = 'GET' } = action;
+  const { path, onSuccess, onError, method = 'GET' } = action;
 
   const options: any = {
     headers: {
@@ -18,20 +22,23 @@ export const requestWorker: TWorker<IActionHTTP> = async ({ action }: any) => {
 
   const response = await fetch(path, options);
 
-  if (response.status >= 400) console.log('ERROR:');
+  let { ok, status } = response;
 
-  const data = await response.json();
+  if (ok && status === 200) {
+    let data = await response.json();
 
-  onSuccess!({ data, requestId, method });
+    onSuccess({ data, requestId, method });
+  } else {
+    try {
+      throw new ReferenceError('Request Failed');
+    } catch (error) {
+      console.info(error);
+      onError(error);
+    }
+  }
 };
 
-// const requestMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
-// subscribe(ACTION_TYPES.REQUEST, requestWorker)(next, middlewareAPI);
-
-const requestMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) => (
-  action: any
-) => {
-  next(action);
-};
+const requestMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
+  subscribe(ACTION_TYPES.REQUEST, requestMiddlewareWorker)(next, middlewareAPI);
 
 export const httpMiddlewares = [requestMiddleware];

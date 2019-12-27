@@ -19,9 +19,7 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onGetToken: () => {
-      dispatch(getToken());
-    }
+    onGetToken: () => dispatch(getToken())
   };
 };
 
