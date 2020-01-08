@@ -1,15 +1,20 @@
 import { MiddlewareAPI } from 'redux';
 import { push, getHash } from 'connected-react-router';
 
-import { setToLocalStorage, getFromLocalStorage, subscribe } from '../../utils';
+import {
+  setToLocalStorage,
+  getFromLocalStorage,
+  subscribe,
+  clearLocalStorage
+} from '../../utils';
 import { ACTION_TYPES } from './actionTypes';
 import { setToken } from './actions';
 import { URLS } from '../../components/Routes';
 import { request } from '../http';
 
-const { REACT_APP_KEY } = process.env;
+const { REACT_APP_NAME, REACT_APP_KEY } = process.env;
 
-const TOKEN_STORAGE_KEY = 'TRELLO_TOKEN';
+const TOKEN_STORAGE_KEY = REACT_APP_NAME!;
 
 const getTokenMiddlewareWorker = ({
   action,
@@ -38,7 +43,7 @@ const setTokenMiddlewareWorker = async ({ action, next, dispatch }: any) => {
 
   let { payload: token } = action;
 
-  const url = `https://api.trello.com/1/tokens/${token}
+  const url = `/1/tokens/${token}
     ?token=${token}
     &key=${REACT_APP_KEY}`.replace(/[\s\n]/g, '');
 
@@ -46,9 +51,9 @@ const setTokenMiddlewareWorker = async ({ action, next, dispatch }: any) => {
     request({
       path: url,
       onSuccess({ data, requestId, method }) {
-        setToLocalStorage(TOKEN_STORAGE_KEY, action.payload);
-
         dispatch(push(URLS.DASH_BOARD));
+
+        setToLocalStorage(TOKEN_STORAGE_KEY, action.payload);
       },
       onError(error) {
         dispatch(push(URLS.LOGIN));
@@ -77,6 +82,8 @@ const readTokenMiddlewareWorker = async ({
 
   let savedToken = getFromLocalStorage(TOKEN_STORAGE_KEY) || '';
 
+  console.info(savedToken);
+
   if (savedToken) dispatch(setToken(savedToken));
 
   /* const url = `https://api.trello.com/1/members/me
@@ -92,8 +99,26 @@ const readTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
     middlewareAPI
   );
 
+const removeTokenMiddlewareWorker = async ({
+  action,
+  next,
+  dispatch,
+  getState
+}: any) => {
+  next(action);
+
+  clearLocalStorage();
+};
+
+const removeTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
+  subscribe(ACTION_TYPES.READ_TOKEN, removeTokenMiddlewareWorker)(
+    next,
+    middlewareAPI
+  );
+
 export const oauthMiddlewares = [
   getTokenMiddleware,
   setTokenMiddleware,
-  readTokenMiddleware
+  readTokenMiddleware,
+  removeTokenMiddleware
 ];

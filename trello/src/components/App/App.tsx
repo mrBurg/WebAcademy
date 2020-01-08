@@ -61,7 +61,7 @@ class App extends Component<IAppProps, IAppState> {
           exact={exact}
           path={path}
           render={(props: RouteChildrenProps): ReactElement =>
-            render({ ...props, token: this.state.token })
+            render!({ ...props, token: this.state.token })
           }
         />
       );

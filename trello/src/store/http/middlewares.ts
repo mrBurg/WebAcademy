@@ -1,8 +1,12 @@
+import { MiddlewareAPI } from 'redux';
 import uuid from 'uuid/v4';
 
 import { IActionHTTP /* ACTION_TYPES */, ACTION_TYPES } from './actionTypes';
 import { TWorker, subscribe } from './../../utils';
-import { MiddlewareAPI } from 'redux';
+
+let makeURL = (path: string) => REACT_APP_API_DOMAIN + path;
+
+const { REACT_APP_API_DOMAIN } = process.env;
 
 export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
   action,
@@ -20,7 +24,7 @@ export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
     }
   };
 
-  const response = await fetch(path, options);
+  const response = await fetch(makeURL(path), options);
 
   let { ok, status } = response;
 

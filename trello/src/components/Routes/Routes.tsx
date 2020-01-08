@@ -44,7 +44,7 @@ export const routes: Array<IAppRoute> = [
   {
     path: URLS.LOGIN,
     render: props => <Login {...props} />,
-    title: 'login'
+    title: 'Login'
   },
   {
     path: URLS.NOT_FOUND,

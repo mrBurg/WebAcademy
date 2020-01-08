@@ -33,9 +33,9 @@ class Header extends Component<IHeaderProps> {
 
     return (
       <header className={style.header}>
-        <nav className={style.nav}>
+        {/* <nav className={style.nav}>
           <Link to={URLS.HOME} className={style.home} />
-        </nav>
+        </nav> */}
         <Link to={URLS.HOME} className={style.link}>
           <Logo className={style.logo} />
         </Link>

@@ -6,7 +6,7 @@ import init, { initMiddlewares } from './initialization';
 import oauth, { IOauthState, oauthMiddlewares } from './oauth';
 import http, { IHTTPState, httpMiddlewares } from './http';
 import { logoutMiddleware } from './logout';
-import dashboard, { dashBoardMiddlewares } from './dashboard';
+import dashboard, { dashBoardMiddlewares } from './boards';
 
 export interface IAppState {
   router: any;
@@ -52,4 +52,4 @@ export default function configureStore() {
 
 export * from './oauth';
 export * from './logout';
-export * from './dashboard';
+export * from './boards';
