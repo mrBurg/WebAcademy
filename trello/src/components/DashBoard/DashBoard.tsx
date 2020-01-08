@@ -11,19 +11,41 @@ export interface IBoard {
   name?: string;
   pinned?: boolean;
   desc?: string;
+  shortUrl?: string;
 }
 
-interface IDashBoardProps extends IRouteChildrenProps {}
+interface IDashBoardProps extends IRouteChildrenProps {
+  onGetBoard?: any;
+  dashboard?: any;
+}
 
 const INITIAL_STATE: IBoard = {};
 
 class DashBoard extends Component<IDashBoardProps> {
   public state = INITIAL_STATE;
-  static getDerivedStateFromProps(props: any, state: IAppState): Partial<any> {
-    let { onGetBoard } = props;
+  static getDerivedStateFromProps(
+    nextProps: any,
+    prevState: any
+  ): Partial<any> {
+    console.info(nextProps, 'nextProps');
+    console.info(prevState, 'prevState');
+    let { onGetBoard } = nextProps;
 
     onGetBoard();
     return {};
+  }
+
+  /* UNSAFE_componentWillMount() {
+    let { onGetBoard } = this.props;
+    onGetBoard();
+  } */
+
+  /* componentWillUpdate() {
+    console.info('componentWillUpdate');
+  } */
+
+  componentDidUpdate() {
+    console.info('componentDidUpdate');
   }
 
   private goBack = (): void => {
@@ -31,41 +53,37 @@ class DashBoard extends Component<IDashBoardProps> {
   };
 
   private showBoards(board: IBoard, index: number): ReactElement {
-    let { id, name, pinned } = board;
+    let { id, name, pinned, desc, shortUrl } = board;
 
     return (
       <tr key={index}>
         <td>{id}</td>
         <td>{name}</td>
+        <td>{shortUrl}</td>
+        <td>{desc}</td>
         <td>{pinned ? 'pinned' : 'nopinned'}</td>
       </tr>
     );
   }
 
   render(): ReactElement {
-    // let { boards } = this.props;
-
-    // console.info(boards);
-
-    /* if (!boards) {
-      return <p onClick={this.goBack}>Nothing to render</p>;
-    } */
+    let { dashboard } = this.props;
 
     return (
-      <table cellPadding='0' cellSpacing='0' className={style.table}>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+      <>
+        {/* <p onClick={this.goBack}>Nothing to render</p>
+        <table cellPadding='0' cellSpacing='0' className={style.table}>
+          {<tbody>{dashboard.boards.map(this.showBoards)}</tbody>}
+        </table> */}
+      </>
     );
   }
 }
 
 const mapStateToProps = (state: IAppState) => {
-  return {};
+  return {
+    // dashboard: { ...state.dashboard }
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
