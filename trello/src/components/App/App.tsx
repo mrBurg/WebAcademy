@@ -40,32 +40,28 @@ class App extends Component<IAppProps, IAppState> {
   static getDerivedStateFromProps(
     props: IAppProps,
     state: IAppState
-  ): Partial<any> | null {
+  ): Partial<any> {
     let { onInitApp } = props;
 
     onInitApp();
-    return null;
+    return {};
   }
 
   private renderRoute = (route: IAppRoute, index: number): ReactElement => {
     let { path, exact, render } = route;
 
-    if (route.isProtected) {
-      return (
-        <ProtectedRoute key={index} exact={exact} path={path} render={render} />
-      );
-    } else {
-      return (
-        <Route
-          key={index}
-          exact={exact}
-          path={path}
-          render={(props: RouteChildrenProps): ReactElement =>
-            render!({ ...props, token: this.state.token })
-          }
-        />
-      );
-    }
+    return route.isProtected ? (
+      <ProtectedRoute key={index} exact={exact} path={path} render={render} />
+    ) : (
+      <Route
+        key={index}
+        exact={exact}
+        path={path}
+        render={(props: RouteChildrenProps): ReactElement =>
+          render!({ ...props, token: this.state.token })
+        }
+      />
+    );
   };
 
   public render(): ReactElement {

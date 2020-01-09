@@ -4,9 +4,9 @@ import uuid from 'uuid/v4';
 import { IActionHTTP /* ACTION_TYPES */, ACTION_TYPES } from './actionTypes';
 import { TWorker, subscribe } from './../../utils';
 
-let makeURL = (path: string) => REACT_APP_API_DOMAIN + path;
-
 const { REACT_APP_API_DOMAIN } = process.env;
+
+let makeURL = (path: string) => REACT_APP_API_DOMAIN + path;
 
 export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
   action,

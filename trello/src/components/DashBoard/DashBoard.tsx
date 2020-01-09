@@ -13,17 +13,28 @@ export interface IBoard {
   desc?: string;
 }
 
-interface IDashBoardProps extends IRouteChildrenProps {}
+interface IDashBoardProps extends IRouteChildrenProps {
+  dashboard?: any;
+  onGetBoard?: any;
+}
 
 const INITIAL_STATE: IBoard = {};
 
 class DashBoard extends Component<IDashBoardProps> {
   public state = INITIAL_STATE;
-  static getDerivedStateFromProps(props: any, state: IAppState): Partial<any> {
-    let { onGetBoard } = props;
+  /* static getDerivedStateFromProps(props: any, state: IAppState): Partial<any> {
+    console.info(state);
+    let { onGetBoard, dashboard } = props;
+
+    // if (Object.keys(dashboard).length) return {};
 
     onGetBoard();
     return {};
+  } */
+
+  UNSAFE_componentWillMount() {
+    let { onGetBoard } = this.props;
+    onGetBoard();
   }
 
   private goBack = (): void => {
@@ -43,9 +54,9 @@ class DashBoard extends Component<IDashBoardProps> {
   }
 
   render(): ReactElement {
-    // let { boards } = this.props;
+    // let { dashboard } = this.props;
 
-    // console.info(boards);
+    console.info(this.props);
 
     /* if (!boards) {
       return <p onClick={this.goBack}>Nothing to render</p>;
@@ -65,7 +76,10 @@ class DashBoard extends Component<IDashBoardProps> {
 }
 
 const mapStateToProps = (state: IAppState) => {
-  return {};
+  // console.info(state.dashboard);
+  return {
+    dashboard: {}
+  };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

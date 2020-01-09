@@ -82,15 +82,7 @@ const readTokenMiddlewareWorker = async ({
 
   let savedToken = getFromLocalStorage(TOKEN_STORAGE_KEY) || '';
 
-  console.info(savedToken);
-
   if (savedToken) dispatch(setToken(savedToken));
-
-  /* const url = `https://api.trello.com/1/members/me
-    ?key=${REACT_APP_KEY}
-    &token=${token}`.replace(/[\s\n]/g, ''); */
-
-  // let savedToken = getFromLocalStorage(TOKEN_STORAGE_KEY);
 };
 
 const readTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
@@ -111,7 +103,7 @@ const removeTokenMiddlewareWorker = async ({
 };
 
 const removeTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
-  subscribe(ACTION_TYPES.READ_TOKEN, removeTokenMiddlewareWorker)(
+  subscribe(ACTION_TYPES.REMOVE_TOKEN, removeTokenMiddlewareWorker)(
     next,
     middlewareAPI
   );
