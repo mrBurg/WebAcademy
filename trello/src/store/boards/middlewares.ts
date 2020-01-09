@@ -16,7 +16,7 @@ const dashboardMiddlewareWorker = ({
 }: any) => {
   next(action);
 
-  const { token } = getState().oauth;
+  let { token } = getState().oauth;
 
   const url = `/1/members/me/boards
     ?token=${token}
@@ -25,12 +25,12 @@ const dashboardMiddlewareWorker = ({
   dispatch(
     request({
       path: url,
-      onSuccess({ data, requestId, method }) {
+      onSuccess({ data }) {
         dispatch(setBoard(data));
       },
       onError(error) {
         console.info(error);
-        dispatch(push(URLS.LOGIN));
+        // dispatch(push(URLS.LOGIN));
       }
     })
   );
