@@ -50,6 +50,7 @@ export default function configureStore() {
   );
 }
 
+export * from './initialization';
 export * from './oauth';
 export * from './logout';
 export * from './boards';

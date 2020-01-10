@@ -18,7 +18,7 @@ import { Header } from './../Header';
 import { OAuth } from './../OAuth';
 import { IBoard } from '../DashBoard';
 import { IUserProfile } from '../UserProfile';
-import { initApp } from '../../store/initialization';
+import { initApp } from '../../reduxStore';
 
 interface IAppProps extends RouteComponentProps {
   onInitApp: () => void;

@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 
 import { URLS } from '../Routes';
-import { IAppState, isAuthenticated } from '../../store';
+import { IAppState, isAuthenticated } from '../../reduxStore';
 
 interface IProtectedRouteProps extends RouteProps {
   isAuthenticated?: boolean;

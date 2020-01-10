@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { RouteChildrenProps } from 'react-router-dom';
 
-import { IAppState, getToken } from '../../store';
+import { IAppState, getToken } from '../../reduxStore';
 
 interface IOAuthProps extends RouteChildrenProps {
   onGetToken: () => void;

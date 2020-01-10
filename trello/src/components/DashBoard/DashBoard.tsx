@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import style from './DashBoard.module.scss';
 
 import { IRouteChildrenProps } from '../Routes';
-import { getBoard, IAppState } from '../../store';
+import { getBoard, IAppState } from '../../reduxStore';
 
 export interface IBoard {
   id?: string;
@@ -26,34 +26,29 @@ class DashBoard extends Component<IDashBoardProps> {
   static getDerivedStateFromProps(
     nextProps: any,
     prevState: any
-  ): Partial<any> {
+  ): Partial<any> | null {
     console.info(nextProps, 'nextProps');
     console.info(prevState, 'prevState');
     let { onGetBoard } = nextProps;
 
     // if (Object.keys(dashboard).length) return {};
 
-    onGetBoard();
-    return {};
+    // onGetBoard();
+    return null;
   }
 
-  /* UNSAFE_componentWillMount() {
+  UNSAFE_componentWillMount() {
     let { onGetBoard } = this.props;
     onGetBoard();
-  } */
-
-  /* UNSAFE_componentWillMount() {
-    let { onGetBoard } = this.props;
-    onGetBoard();
-  } */
+  }
 
   /* componentWillUpdate() {
     console.info('componentWillUpdate');
   } */
 
-  componentDidUpdate() {
+  /* componentDidUpdate() {
     console.info('componentDidUpdate');
-  }
+  } */
 
   private goBack = (): void => {
     this.props.history.goBack();
@@ -95,7 +90,7 @@ class DashBoard extends Component<IDashBoardProps> {
 
 const mapStateToProps = (state: IAppState) => {
   return {
-    // dashboard: { ...state.dashboard }
+    dashboard: { ...state.dashboard }
   };
 };
 

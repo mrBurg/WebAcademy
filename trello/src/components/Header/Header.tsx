@@ -6,7 +6,7 @@ import style from './Header.module.scss';
 import { ReactComponent as Logo } from './../../svg/my-trello-logo.svg';
 
 import { routes, IAppRoute, URLS } from '../Routes';
-import { IAppState, logout, isAuthenticated } from '../../store';
+import { IAppState, logout, isAuthenticated } from '../../reduxStore';
 import { connect } from 'react-redux';
 
 interface IHeaderProps {

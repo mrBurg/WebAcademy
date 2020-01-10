@@ -1,6 +1,6 @@
 import { ACTION_TYPES } from './actionTypes';
 
-export interface InitState {
+/* export */ interface InitState {
   sessionId?: string;
   boards?: Array<any>;
 }

@@ -1,20 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as MobxProvider } from 'mobx-react';
 import { ConnectedRouter } from 'connected-react-router';
+import { stores } from './mobxStores';
 
 import './index.scss';
 
 import { App } from './components/App';
-import configureStore, { history } from './store';
+import configureStore, { history } from './reduxStore';
 
 const store = configureStore();
 
 render(
-  <Provider store={store}>
+  <ReduxProvider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <MobxProvider {...stores}>
+        <App />
+      </MobxProvider>
     </ConnectedRouter>
-  </Provider>,
+  </ReduxProvider>,
   document.getElementById('root')
 );
