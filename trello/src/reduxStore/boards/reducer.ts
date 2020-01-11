@@ -14,7 +14,7 @@ export default (state: InitState = INITIAL_STATE, action: any) => {
     case ACTION_TYPES.GET_BOARD:
       return INITIAL_STATE;
     case ACTION_TYPES.SET_BOARD:
-      return { ...state, ...action.payload };
+      return { ...state, boards: [...action.payload] };
     default:
       return state;
   }

@@ -1,22 +1,17 @@
 import { MiddlewareAPI } from 'redux';
-import uuid from 'uuid/v4';
+import { IActionHTTP, ACTION_TYPES } from './actionTypes';
+import { TWorker, subscribe, makeURL } from './../../utils';
 
-import { IActionHTTP /* ACTION_TYPES */, ACTION_TYPES } from './actionTypes';
-import { TWorker, subscribe } from './../../utils';
-
-const { REACT_APP_API_DOMAIN } = process.env;
-
-let makeURL = (path: string) => REACT_APP_API_DOMAIN + path;
+// let makeURL = (path: string) => REACT_APP_API_DOMAIN + path;
 
 export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
   action,
   next
 }: any) => {
-  next(action);
-  const requestId = uuid();
   const { path, onSuccess, onError, method = 'GET' } = action;
 
   const options: any = {
+    method,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -31,7 +26,7 @@ export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
   if (ok && status === 200) {
     let data = await response.json();
 
-    onSuccess({ data, requestId, method });
+    onSuccess({ data });
   } else {
     try {
       throw new ReferenceError('Request Failed');

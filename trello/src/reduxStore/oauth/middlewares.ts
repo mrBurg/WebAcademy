@@ -50,8 +50,7 @@ const setTokenMiddlewareWorker = async ({ action, next, dispatch }: any) => {
   dispatch(
     request({
       path: url,
-      onSuccess({ data }) {
-        console.info(data);
+      onSuccess() {
         dispatch(push(URLS.DASH_BOARD));
 
         setToLocalStorage(TOKEN_STORAGE_KEY, action.payload);

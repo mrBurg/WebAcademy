@@ -6,10 +6,12 @@ interface IAction {
 }
 
 export interface IOauthState {
-  token?: string;
+  token: string;
 }
 
-const INITIAL_STATE: IOauthState = {};
+const INITIAL_STATE: IOauthState = {
+  token: ''
+};
 
 export default (
   state: IOauthState = INITIAL_STATE,

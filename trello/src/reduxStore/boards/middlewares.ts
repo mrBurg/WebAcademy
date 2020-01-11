@@ -2,8 +2,8 @@ import { MiddlewareAPI } from 'redux';
 import { ACTION_TYPES } from './actionTypes';
 import { subscribe } from '../../utils';
 import { request } from '../http';
-import { push } from 'connected-react-router';
-import { URLS } from '../../components/Routes';
+// import { push } from 'connected-react-router';
+// import { URLS } from '../../components/Routes';
 import { setBoard } from './actions';
 
 const { REACT_APP_KEY } = process.env;

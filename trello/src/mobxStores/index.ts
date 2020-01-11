@@ -18,11 +18,11 @@ export enum STORE_IDS {}
 // CARDS = 'cards',
 // LISTS = 'lists'
 
-const apis = {
+/* const apis = {
   // [STORE_IDS.BOARDS]: new BoardsApi(),
   // [STORE_IDS.CARDS]: new CardsApi(),
   // [STORE_IDS.LISTS]: new ListsApi()
-};
+}; */
 
 // const auth = new AuthStore();
 // const notifications = new NotificationsStore();
