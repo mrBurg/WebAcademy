@@ -5,7 +5,8 @@ import {
   setToLocalStorage,
   getFromLocalStorage,
   subscribe,
-  clearLocalStorage
+  clearLocalStorage,
+  makeURL
 } from '../../utils';
 import { ACTION_TYPES } from './actionTypes';
 import { setToken } from './actions';
@@ -38,8 +39,15 @@ const getTokenMiddleware = (middlewareAPI: MiddlewareAPI) => (next: any) =>
     middlewareAPI
   );
 
-const setTokenMiddlewareWorker = async ({ action, next, dispatch }: any) => {
+const setTokenMiddlewareWorker = async ({
+  action,
+  next,
+  dispatch,
+  getState
+}: any) => {
   next(action);
+
+  console.info(action, next, dispatch, getState);
 
   let { payload: token } = action;
 
@@ -49,7 +57,7 @@ const setTokenMiddlewareWorker = async ({ action, next, dispatch }: any) => {
 
   dispatch(
     request({
-      path: url,
+      path: makeURL(url, true, token),
       onSuccess() {
         dispatch(push(URLS.DASH_BOARD));
 

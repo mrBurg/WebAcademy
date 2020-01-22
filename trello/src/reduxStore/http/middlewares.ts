@@ -1,14 +1,17 @@
 import { MiddlewareAPI } from 'redux';
 import { IActionHTTP, ACTION_TYPES } from './actionTypes';
 import { TWorker, subscribe, makeURL } from './../../utils';
-
-// let makeURL = (path: string) => REACT_APP_API_DOMAIN + path;
+import { getTokenData } from '../oauth';
 
 export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
   action,
-  next
+  next,
+  getState
 }: any) => {
-  const { path, onSuccess, onError, method = 'GET' } = action;
+  const { path, onSuccess, onError, method = 'GET', authRequired } = action;
+
+  const appState = getState();
+  const token = getTokenData(appState);
 
   const options: any = {
     method,
@@ -19,7 +22,7 @@ export const requestMiddlewareWorker: TWorker<IActionHTTP> = async ({
     }
   };
 
-  const response = await fetch(makeURL(path), options);
+  const response = await fetch(makeURL(path, authRequired, token), options);
 
   let { ok, status } = response;
 
